@@ -1,0 +1,24 @@
+-------PREPARANDO O AMBIENTE DE DESENVOLVIMENTO------
+
+Utilizado o xamp para instalação dos programas necessários para o curso, ele é uma ferramenta que auxilia na instalação do php e outros programas par o ambiente de desenvolvimento.
+
+Arquivo de configuração do Apache:
+httpd.conf
+
+Arquivo de configuração do PHP:
+php.ini
+
+Caso queira alterar alguma informação ou configuração, deve-se usar o arquivo do programa que comanda o recurso alterado.
+
+> Xamp Control Panel
+* Inicia o serviço Apache
+* Configura para iniciar junto com o windows
+* Configura como serviço, rodando sempre que a máquina estiver ligada
+
+Portas Apache
+porta 80 - protocolo http
+porta 443 - protocolo https
+
+Porta Mysql
+porta 3306
+
