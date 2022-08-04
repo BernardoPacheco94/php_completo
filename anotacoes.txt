@@ -8,6 +8,8 @@ httpd.conf
 Arquivo de configuração do PHP:
 php.ini
 
+Alterado o document root no httpd.conf, de C:\xampp\htdocs para D:\GitHub\curso_php_completo
+
 Caso queira alterar alguma informação ou configuração, deve-se usar o arquivo do programa que comanda o recurso alterado.
 
 > Xamp Control Panel
@@ -21,4 +23,10 @@ porta 443 - protocolo https
 
 Porta Mysql
 porta 3306
+
+
+-------ARQUITETURA CLIENTE SERVIDOR------
+
+O php roda apenas no lado do servidor, e sempre devolve (o response) um código html
+
 
