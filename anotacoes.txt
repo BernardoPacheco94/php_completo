@@ -30,3 +30,8 @@ porta 3306
 O php roda apenas no lado do servidor, e sempre devolve (o response) um código html
 
 
+-------VARIÁVEIS------
+
+função var_dump -> exibe o tipo de dado, o tamanho da variável e o conteúdo.
+
+
