@@ -34,4 +34,10 @@ O php roda apenas no lado do servidor, e sempre devolve (o response) um código 
 
 função var_dump -> exibe o tipo de dado, o tamanho da variável e o conteúdo.
 
+-------CONSTANTES------
+
+Usado quando for necessário uma "variável" que não possa ter o valor alterado, naquela página. 
+Ex: definição de idioma, conexão com db
+
+usado o 'define' para ser declarada.
 
