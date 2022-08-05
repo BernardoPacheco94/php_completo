@@ -41,3 +41,7 @@ Ex: definição de idioma, conexão com db
 
 usado o 'define' para ser declarada.
 
+
+-------SESSAO------
+
+São semelhantes as constantes. E sao visualizadas enquanto o usuário está conectado. Conecta o usuário ao servidor. Funciona criando um arquivo temporário no cliente e outro no servidor, fazendo a ponte para a conexão, geralmente durando 20 min.
