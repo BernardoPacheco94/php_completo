@@ -91,3 +91,12 @@ setlocale: parametro LC_ALL muda toda minha configuração de local para o local
 Formatações strftime: https://www.php.net/manual/pt_BR/function.strftime.php
 
 De preferenci usar as classes datetime.
+
+
+-------ORIENTAÇÃO A OBJETOS------
+
+Classes -> Meios de organização do software, onde seus atributos e métodos correspondem a um determinado assunto ou recurso.
+
+Objeto -> É uma varável que representa a classe, podendo ser instanciada em outro local do sistema.
+
+Static -> Permite que eu execute ou acesse alguma informação de uma classe, sem necessidade de instanciar, podendo usar dentro do setter por exemplo.
