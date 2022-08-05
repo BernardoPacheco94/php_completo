@@ -66,3 +66,14 @@ Sempre será usado o session_start() no código, a nao ser que eu altere no php.
 Cada sessão gera um id pelo servidor, podendo ser verificada pela função session_id();
 funções para sessão: https://www.php.net/manual/pt_BR/book.session.php
 
+
+-------FUNÇÕES------
+
+Lembrar de que parâmetros obrigatórios devem ir sempre a esquerda.
+
+
+Parametro por valor x referencia:
+Por padrão existe o escopo da função, onde se eu usar uma função e alterar o seu valor, esse valor só será alterado na função. Essa é a passagem por valor.
+A passagem por referencia, informa o endereço da varável para ser alterado lá, atualizando seu valor de acordo com a função. Para isso basta usar o & ao lado do parametro.
+
+
