@@ -47,4 +47,5 @@ usado o 'define' para ser declarada.
 São semelhantes as constantes. E sao visualizadas enquanto o usuário está conectado. Conecta o usuário ao servidor. Funciona criando um arquivo temporário no cliente e outro no servidor, fazendo a ponte para a conexão, geralmente durando 20 min.
 Sempre será usado o session_start() no código, a nao ser que eu altere no php.ini.
 Cada sessão gera um id pelo servidor, podendo ser verificada pela função session_id();
+funções para sessão: https://www.php.net/manual/pt_BR/book.session.php
 
