@@ -80,3 +80,14 @@ Funções anônimas:
 Usada para funções que provavelmente vão demorar para serem executadas.
 
 
+-------DATAS------
+
+A função date() exige no mímino um argumento, que é o formado da data.
+Ex: date("d/m/Y");
+
+O time stamp é gerado de acordo com a minha necessidade e utilizado para calcular minhas datas, a referencia dele é a quantidade de segundos desde 01/01/1970. Posso usar o comando time() para gerá-lo.
+
+setlocale: parametro LC_ALL muda toda minha configuração de local para o local que será definido. Em seguida defino o local. Ideal utilizar os padrões (windows, linux e utf-8).
+Formatações strftime: https://www.php.net/manual/pt_BR/function.strftime.php
+
+De preferenci usar as classes datetime.
