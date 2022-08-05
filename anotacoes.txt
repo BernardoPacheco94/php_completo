@@ -41,6 +41,23 @@ Ex: definição de idioma, conexão com db
 
 usado o 'define' para ser declarada.
 
+-------INCLUDE E REQUIRE------
+
+Auxilia na modularização, permitindo importar arquivos para dentro da minha página e utilizar os recursos desses arquivos nessa página.
+
+***Ficar atento aos erros, pode ocorrer no arquivo original e não onde está sendo usado o include***
+
+Quando o arquivo não está na mesma pasta deve-se ficar atento ao path do include.
+
+require ou include ONCE: Pode ocorrer de eu solicitar um require e o arquivo solicitado tambem tenha um require. O ONCE evita que eu utilize a mesma função duas vezes, caso o eu esteja incluindo um arquivo que está dentro do requisitado.
+
+Diferença entre include e require:
+
+Require -> Obriga que o arquivo existe e esteja funcionando corretamente, caso não seja dessa maneira, ocorrerá erro fatal. ideal de ser usado quando não tenho uma configuração específica para o include, pois obriga o código a funcionar corretamente.
+
+
+Include -> Tenta executar o restante do código mesmo se houverem falhas no arquivo solicitado. E tem mais recursos.
+
 
 -------SESSAO------
 
