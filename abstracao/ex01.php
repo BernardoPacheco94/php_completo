@@ -8,7 +8,7 @@ interface Veiculo
 }
 
 
-abstract class Automovel implements Veiculo
+abstract class Automovel implements Veiculo //a classe automovel não pode ser acessada diretamente, apenas usada como herança
 {
     public function acelerar($velocidade)
     {

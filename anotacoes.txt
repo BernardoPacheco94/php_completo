@@ -146,3 +146,15 @@ A classe abstrata se assemelha a interface, porem definem o que os métodos vão
 Um objeto não instancia a classe abstrata. Apenas usa uma classe que extenda a classe abstrata.
 
 Para usá-la uso a palavra reservada 'abstract'
+
+-------POLIMORFISMO------
+
+Quando há um método com mesmo nome em classes diferentes e com comportamentos diferentes.
+
+Utiliza a palavra reservada 'parent' para concatenar um método com o método da classe pai
+
+-------AUTOLOAD------
+
+Função para carregar classes automaticamente sem precisar do require/include.
+Geralmente o autoload é incluído num arquivo de configurações.
+
