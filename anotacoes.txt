@@ -100,3 +100,31 @@ Classes -> Meios de organização do software, onde seus atributos e métodos co
 Objeto -> É uma varável que representa a classe, podendo ser instanciada em outro local do sistema.
 
 Static -> Permite que eu execute ou acesse alguma informação de uma classe, sem necessidade de instanciar, podendo usar dentro do setter por exemplo.
+
+
+-------MÉTODOS MÁGICOS------
+
+os métodos que começam dois underlines (dunder) __
+ex: __construct
+
+Funções do destruct:
+desconectar do bd, encerrar variaveis, etc...
+
+Evita que eu faça os setter manualmente
+
+
+-------ENCAPSULAMENTO------
+
+Proteção ou restrições/modificações de acesso. Muito importante no uso de herança.
+
+Podendo restringir os acessos as variáveis de uma classe
+Quais recursos acessam atributos e métodos?
+
+1 - Funções
+2 - Filhas (extends)
+3 - Objetos
+
+Tipos: 
+* Public: Todos acessam
+* Protected: Mesma classe e classe extendida (objeto nao acessa)
+* Private: Nem mesmo uma classe filha acessa a variavel
