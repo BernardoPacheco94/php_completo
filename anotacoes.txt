@@ -107,7 +107,7 @@ Static -> Permite que eu execute ou acesse alguma informação de uma classe, se
 os métodos que começam dois underlines (dunder) __
 ex: __construct
 
-Funções do destruct:
+Funções do __destruct:
 desconectar do bd, encerrar variaveis, etc...
 
 Evita que eu faça os setter manualmente
@@ -128,3 +128,21 @@ Tipos:
 * Public: Todos acessam
 * Protected: Mesma classe e classe extendida (objeto nao acessa)
 * Private: Nem mesmo uma classe filha acessa a variavel
+
+-------HERANÇA------
+
+*PROCURAR PROJETAR BEM AS CLASSES ANTES DE INICIAR QUALQUER PROJETO, PENSANDO EM HERANÇA*
+
+
+-------INTERFACE------
+
+Código usado para definição de padrões. Quando for criada alguma coisa, a interface pode ser usada para que o php solicite métodos obrigatórios com encapsulamento definidos.
+Será informado/configurado quais métodos preciso ter, se serão privados, publicos ou protegidos...
+Ex: Documentação de API.
+
+-------CLASSES ABSTRATAS------
+
+A classe abstrata se assemelha a interface, porem definem o que os métodos vão realizar. 
+Um objeto não instancia a classe abstrata. Apenas usa uma classe que extenda a classe abstrata.
+
+Para usá-la uso a palavra reservada 'abstract'
