@@ -27,7 +27,7 @@ class Endereco {
 }
 
 
-$meuEndereco = new Endereco('Silva Jardim', '2410', 'Santa Maria');
+$meuEndereco = new Endereco('Silva Jardim', '2410', 'Santa Maria');//Passa os construtores via parametro na instancia
 echo var_dump($meuEndereco);
 echo "<hr>";
 echo $meuEndereco;//exibe o objeto em string pq foi setado para fazer isso no toString

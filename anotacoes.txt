@@ -155,6 +155,14 @@ Utiliza a palavra reservada 'parent' para concatenar um método com o método da
 
 -------AUTOLOAD------
 
+
 Função para carregar classes automaticamente sem precisar do require/include.
 Geralmente o autoload é incluído num arquivo de configurações.
+
+-------NAMESPACES------
+
+Permite organizar pastas para os diretórios. Pode ser usado quando há duas classes com o mesmo nome (obviamente em diretorios diferentes).
+
+
+OGRANIZAÇÃO DE CLASSES: AULA 52
 
