@@ -166,3 +166,65 @@ Permite organizar pastas para os diretórios. Pode ser usado quando há duas cla
 
 OGRANIZAÇÃO DE CLASSES: AULA 52
 
+-------BANCO DE DADOS------
+
+Campo senha - varchar 256.
+
+
+NEW SCHEMA db8;// cria uma base
+USE db_php8; // acessa o banco criado
+CREATE TABLE tb_usuarios() // cria uma tablea no banco
+(
+    idusuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY;
+) // criou a coluna idususario
+
+INSERT INTO tb_usuarios (deslogin, dessenha) VALUES ('root','1234');  //insere no banco um usuario;
+
+SELECT * FROM tb_usuarios; //mostra/exibe toda a tabela usuarios
+
+UPDATE tb_usuarios SET dessenha = '54321' WHERE idusuario=1; //altera a senha do usuario com id 1.
+
+DELETE FROM tb_usuarios WHERE idusuario = 1; // deleta o usuário
+
+TRUNCATE TABLE tb_usuarios;//reseta a tabela toda, como se não houvessem registros nela antes.
+
+
+-------PHP COM BANCO DE DADOS------
+
+As funções mysqli_connect e afins foram depreciadas no php7. Atualmente é possivel eu usar a classe msqli ou utilizar o PDO. A diferença é que o PDO pode se comunicar com qualquer banco e não apenas o MySql.
+
+-------PDO *RECOMENDADO* aqui está o crud------
+
+PHP Data Object
+Sempre será usado para tratativas com o banco de dados.
+
+$conn = new PDO("mysql:dbname=db_php8;host:localhost",'root','');//o primeiro parametro é o db type, se fosse outro banco (sqlserver) seria alterado esse parametro
+
+-------PDO INSERINDO DADOS NO BANCO------
+
+$stmt = $conn->prepare("INSERT INTO tb_usuarios (deslogin, dessenha) VALUES (:LOGIN,:PASSWORD)");
+
+-------PDO ALTERADO DADOS NO BANCO------
+
+$stmt = $conn->prepare("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE idusuario = :ID ");
+
+-------PDO DELETANDO DADOS NO BANCO------
+
+$stmt = $conn->prepare("DELETE FROM tb_usuarios WHERE idusuario = :ID ");
+
+-------TRANSAÇÕES------
+
+FICAR ATENTO AO INNODB:
+Execute este script:
+
+ALTER TABLE tb_usuario ENGINE = INNODB;
+
+A diferença do InnoDB é que ele permite que as transações funcionem, a outra Engine não permite isso
+
+$conn -> beginTransaction()
+
+Desfazer updates e deletes no banco, executando os comandos apenas quando algumas condições forem estabelecidas e cupmpridas. Comit - rollback
+
+
+-------DAO: DATA ACCESS OBJECT------
+
