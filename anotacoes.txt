@@ -189,6 +189,9 @@ DELETE FROM tb_usuarios WHERE idusuario = 1; // deleta o usuário
 TRUNCATE TABLE tb_usuarios;//reseta a tabela toda, como se não houvessem registros nela antes.
 
 
+
+
+
 -------PHP COM BANCO DE DADOS------
 
 As funções mysqli_connect e afins foram depreciadas no php7. Atualmente é possivel eu usar a classe msqli ou utilizar o PDO. A diferença é que o PDO pode se comunicar com qualquer banco e não apenas o MySql.

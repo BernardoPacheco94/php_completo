@@ -1,0 +1,80 @@
+usuarios
+	-id
+	-nome
+	-email
+	-senha
+	-ativo
+
+	funções:
+		-login
+
+mesas
+	-id
+	-comandas (fk)
+	-status
+
+	funções:
+		-lançar comanda
+		-alterar status
+
+comandas
+	-id
+	-produtos (fk)
+	-mesa (fk)
+	-valor total
+	-status
+
+	funções:
+		-Abertura
+		-Incluir produtos
+		-Fechamento (vai para o caixa)
+
+produtos
+	-id
+	-nome
+	-tipo (fk)
+	-ingredientes (fk)
+	-valor
+	-ativo
+
+	funções:
+		-crud
+
+tiposprodutos
+	-id
+	-nome
+
+	funções:
+		-crud
+		
+
+ingredientes
+	-id
+	-nome
+	-valoradicional
+	-ativo
+
+	funções:
+		-crud
+
+Caixa
+	-id
+	-comandas (fk)
+	-data-abertura
+	-data-fechamento
+	-valor-inicial
+	-valor-dinheiro
+	-valor-cartao-credito
+	-valor-cartao-debito
+	-valor-pix
+	-valor-total
+	-status
+
+	funções:
+		-abertura
+		-recebimento de comandas
+		-encerramento de comandas
+		-receber pagamento
+		-alterar-comanda
+		-exibir-valores
+		-fechamento
