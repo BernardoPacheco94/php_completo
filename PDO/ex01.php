@@ -8,4 +8,4 @@ $stmt->execute();
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);//o fetch all passa por todas as linhas
 
-var_dump($results);
+print_r($results);

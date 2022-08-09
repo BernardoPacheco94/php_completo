@@ -233,3 +233,4 @@ Desfazer updates e deletes no banco, executando os comandos apenas quando alguma
 
 Fazendo o php se comunicar com as classes e somente as classes se comunicam direto com o banco.
 
+
