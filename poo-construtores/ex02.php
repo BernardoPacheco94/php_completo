@@ -22,7 +22,7 @@ class Documento
         }
     }
 
-    public static function validarCPF($cpf)
+    public static function validarCPF($cpf)//Método estático
     {
         if (empty($cpf)) {
             return false;
