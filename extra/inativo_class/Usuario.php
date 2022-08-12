@@ -2,7 +2,7 @@
 
 //conectar com o banco
 
-class usuarios
+class Usuario
 {
     private $id;
     private $nome;
@@ -36,6 +36,11 @@ class usuarios
         return $this->ativo;
     }
 
+    public function setId($idusuario)
+    {
+        $this->id = $idusuario;
+    }
+
     public function setNome($nome)
     {
         $this->nome = $nome;
@@ -51,12 +56,39 @@ class usuarios
         $this->passhash = $passhash;
     }
 
-    public function setAtivo ($ativo)
+    public function setAtivo($ativo)
     {
         $this->ativo = $ativo;
     }
 
-    //métodos de login
 
 
+    public function loadById($id)
+    {
+        $load = new sql;
+
+        $resultado = $load->select("SELECT * FROM usuarios WHERE idusuario = :ID", array(":ID" => $id)); //passa o load para o OBJETO resultado
+
+        if (isset($resultado[0])) //testa se o obj existe
+        {
+            $row = $resultado[0]; //passa o obj pra uma variável
+            $this->setId($row['idusuario']);
+            $this->setEmail($row['email']);
+            $this->setPasshash($row['passhash']);
+            $this->setNome($row['nome']);
+            $this->setAtivo($row['ativo']);
+        }
+
+        //echo json_encode($resultado);
+    }
+
+    public function __toString()
+    {
+        return json_encode(array(
+            "ID" => $this->getId(),
+            "Email" => $this->getEmail(),
+            "Nome" => $this->getNome(),
+            "Ativo" => $this->getAtivo()
+        ));
+    }
 }

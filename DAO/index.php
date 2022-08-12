@@ -2,11 +2,8 @@
 
 require_once "config.php";
 
-$sql = new sql();
+$user = new Usuario;
 
-$usuarios = $sql->select("SELECT * FROM tb_usuarios");
+ $user->findById(2);
 
-$sql->execQuery("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :SENHA WHERE idusuario = :ID" , [':LOGIN'=>'murilo', ':SENHA'=>'abcde', ':ID'=>5]);
-
-echo json_encode($usuarios);
-
+ echo $user;//apneas o echo, pois há o construtor toString na classe Usuario

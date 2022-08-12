@@ -2,7 +2,7 @@
 
 spl_autoload_register(function ($class_name){
     
-    $filename = "$class_name.php";
+    $filename = "class".DIRECTORY_SEPARATOR."$class_name.php";
     
     if(file_exists(($filename)))
     {
@@ -13,6 +13,8 @@ spl_autoload_register(function ($class_name){
 
 /*
 spl_autoload_register(function ($nomeClasse)
+
+Verifica se a classe está em um diretorio anteriro ou no mesmo
 {
     if (file_exists("Abstratas".DIRECTORY_SEPARATOR."$nomeClasse.php"))//Passar o caminho completo do arquivo
     {
