@@ -234,3 +234,18 @@ Desfazer updates e deletes no banco, executando os comandos apenas quando alguma
 Fazendo o php se comunicar com as classes e somente as classes se comunicam direto com o banco.
 
 
+
+-------CRIAR PROCEDURES------
+No Mysql work bench. Seleciona o db > clic botão direito em Sotred Procedures > Create Stroed Procedures.
+ex:
+
+CREATE PROCEDURE `sp_usuarios_insert` (
+pdeslogin VARCHAR(64),
+pdessenha VARCHAR(256)
+)
+BEGIN
+	INSERT INTO tb_usuarios (deslogin, dessenha) VALUES (pdeslogin, pdessenha);
+    
+    SELECT * FROM tb_usuarios WHERE idusuario = LAST_INSERT_ID();
+END
+
