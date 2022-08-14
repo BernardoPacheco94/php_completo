@@ -123,7 +123,6 @@ public function update($login, $senha)
         ':SENHA'=>$this->getDesSenha(),
         ':ID'=>$this->getIdUsuario(),
     ));
-
 }
 
 public function delete()
