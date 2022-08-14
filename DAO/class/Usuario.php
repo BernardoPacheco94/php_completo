@@ -126,6 +126,19 @@ public function update($login, $senha)
 
 }
 
+public function delete()
+{
+    $sql = new sql;
+
+    $sql->execQuery("DELETE FROM tb_usuarios WHERE idusuario = :ID",array(":ID"=>$this->getIdUsuario()));
+
+    $this->setData(array(
+        'idusuario'=>0,
+        'deslogin'=>'',
+        'dessenha'=>''
+    ));
+}
+
 public function __toString()
 {
     return json_encode(array(

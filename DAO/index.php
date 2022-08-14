@@ -27,8 +27,15 @@ $user = new Usuario;
 // echo $user;
 
 /*--UPDATE DE USUARIO--*/
-$user->findById(6);//carrega o usuário pelo id
-$user->update("mufasa","scar");
+// $user->findById(6);//carrega o usuário pelo id
+// $user->update("mufasa","scar");
 
+// $lista = Usuario::getList();
+// echo json_encode($lista);
+
+/*-- DELETE --*/
+$user->findById(12);
+$user->delete();
 $lista = Usuario::getList();
 echo json_encode($lista);
+
