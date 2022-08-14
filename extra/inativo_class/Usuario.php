@@ -61,6 +61,13 @@ class Usuario
         $this->ativo = $ativo;
     }
 
+    public static function listUsuarios()
+    {
+        $sql = new sql;
+
+        return $sql->select("SELECT * FROM usuarios");        
+
+    }
 
 
     public function loadById($id)
@@ -80,6 +87,21 @@ class Usuario
         }
 
         //echo json_encode($resultado);
+    }
+
+    public function login($email, $senha)
+    {
+        $sql = new sql;//talvez tenha ()
+        $resultado = $sql->select("SELECT * FROM usuarios WHERE email = :EMAIL AND passhash = :PASSHASH",array(":EMAIL"=>$email, ":PASSHASH"=>$senha));//retorna array com as info
+
+        $array = $resultado[0];
+
+        $this->setId($array['idusuario']);
+        $this->setEmail($array['email']);
+        $this->setPasshash($array['passhash']);
+        $this->setNome($array['nome']);
+        $this->setAtivo($array['ativo']);
+        
     }
 
     public function __toString()

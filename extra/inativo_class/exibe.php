@@ -4,6 +4,11 @@ require_once "autoload.php";
 
 $usuario = new Usuario;
 
-$usuario->loadById(2);
+// $lista = Usuario::listUsuarios();
+
+// echo json_encode($lista);
+
+
+$usuario->login("bernardp@gmail.com","passhash");
 
 echo $usuario;

@@ -49,9 +49,7 @@ class Profile
     public static function listProfiles()
     {
         $access = new Access;
-        $str = $access->select("SELECT * FROM tb_profile ORDER BY nome");
-
-        return json_encode($str);
+        return $access->select("SELECT * FROM tb_profile ORDER BY nome");
     }
 
     public function loadById($id)
@@ -104,6 +102,7 @@ class Profile
             )
         );
     }
+
 
     public function delete()
     {

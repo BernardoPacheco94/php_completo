@@ -8,8 +8,8 @@ $user = new Usuario;
 
 
 /*--LISTA OS USUARIOS-- */
-// $list = Usuario::getList();
-// echo json_encode($list);
+$list = Usuario::getList();
+echo json_encode($list);
 
 /*-LISTA USUARIOS POR UM PEDAÇO DE PALAVRA-CHAVE-- */
 // $search = Usuario::search("be");
@@ -34,8 +34,8 @@ $user = new Usuario;
 // echo json_encode($lista);
 
 /*-- DELETE --*/
-$user->findById(12);
-$user->delete();
-$lista = Usuario::getList();
-echo json_encode($lista);
+// $user->findById(12);
+// $user->delete();
+// $lista = Usuario::getList();
+// echo json_encode($lista);
 
