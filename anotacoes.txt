@@ -236,6 +236,8 @@ Fazendo o php se comunicar com as classes e somente as classes se comunicam dire
 
 
 -------CRIAR PROCEDURES------
+
+
 No Mysql work bench. Seleciona o db > clic botão direito em Sotred Procedures > Create Stroed Procedures.
 ex:
 
@@ -248,4 +250,7 @@ BEGIN
     
     SELECT * FROM tb_usuarios WHERE idusuario = LAST_INSERT_ID();
 END
+
+
+-------MANIPULAR ARQUIVOS------
 
