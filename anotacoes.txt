@@ -254,3 +254,4 @@ END
 
 -------MANIPULAR ARQUIVOS------
 
+Sempre haverão maneiras e processos pra trabalhar com o arquivo, como maneira de abrir, fechar, permissões de acesso.
