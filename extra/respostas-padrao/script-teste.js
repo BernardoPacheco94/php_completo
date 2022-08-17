@@ -45,6 +45,7 @@ function criaResposta() {//verificar se possivel exclusao logica
 
 
 
+
 //console.log(respostasPadrao.resposta.length)
 
 //read

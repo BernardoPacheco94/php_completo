@@ -19,32 +19,33 @@
     </header>
 
     <section id="section" class="minha_section">
-        <h1 class="meu_h1">RESPOSTAS PADRÃO SUPORTE</h1>
-        
+        <h1 class="meu_h1">ANOTAÇÕES</h1>
+
     </section>
 
     <footer>
 
     </footer>
     <!-- Modal modal_cadastrar_resposta-->
-    <div class="modal fade" id="modal_cadastrar_resposta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modal_cadastrar_resposta" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <input type="text" name="input_titulo" id="input_titulo" placeholder="Título">
-                    <button type="button" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <form action="" class="form">
+                        <input type="text" name="input_titulo" id="input_titulo" placeholder="Título">
+                        <button type="button" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                 </div>
                 <div class="modal-body">
                     <textarea class="minha_textarea" name="textarea_modal" id="textarea_modal" cols="30" rows="10"
-                    placeholder="Nova Resposta"></textarea>
-
+                        placeholder="Nova Resposta"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" id="fechar_modal">Fechar</button>
                     <button type="button" onclick="criaResposta()">Salvar</button>
+                    </form>
                 </div>
             </div>
         </div>
