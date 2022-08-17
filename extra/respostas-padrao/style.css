@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&family=Ubuntu:wght@400;700&display=swap');
+
+
+:root{
+
+    --cor0: #231F20;
+    --cor1: #FFFFFF;
+    --cor2: #DDDDDD;
+    --cor3: #CCE8ED;
+    --cor4: #105864;
+    --cor5: #008AA4;
+
+    --fonte-padrao: 'Poppins', sans-serif;
+    --fonte-titulo: 'Ubuntu', sans-serif;
+
+}
+
+.minha_header{
+    text-align: center;
+    font-family: var(--fonte-titulo);
+    color: var(--cor2);
+    background-color: var(--cor3);
+    border: 1px solid rgba(0, 0, 0, 0);
+    padding: 10px;
+    position: fixed;
+    top: 0vh;
+    width: 100%;
+}
+
+.meu_body{
+    font-family: var(--fonte-padrao);
+    background-image: linear-gradient(180deg, var(--cor5), var(--cor1));
+    background-attachment: fixed;
+    margin: 0px;
+
+}
+
+.minha_section{
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    border-radius: 4px;
+    text-align: center;
+    width: 75vh;
+    min-width: 400px;
+    margin: 16vh auto 5vh;
+    background-color: var(--cor4);
+    color: var(--cor1);
+    box-shadow: 3px 3px 8px -3px rgba(0, 0, 0, 0.384);
+    
+}
+
+.meu_h3{
+    font-weight: normal;
+}
+.div_txt{
+    border: 1px solid rgba(0, 0, 0, 0.411);
+    border-radius: 4px;
+    margin: 10px;
+    padding: 5px;
+    
+}
+
+.minha_textarea{
+    height: 150px;
+    width: 350px;
+    display: block;
+    margin: auto auto 7px auto;
+    background-color: var(--cor3);
+    color: var(--cor0);
+    border: none;
+    border-radius: 4px;
+    resize: none;
+    padding: 3px;
+}
+
+button{
+    width: 100px;    
+    height: 30px;
+    border: none;
+    background-color: var(--cor5);
+    color: var(--cor1);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.945);
+}
+
+.modal_header{
+    text-align: center;
+}
