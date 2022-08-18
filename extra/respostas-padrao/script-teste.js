@@ -9,11 +9,11 @@ function copiar(id){
 
     if(hora >= 8 && hora < 13){
         saudacao = 'Bom dia'
-        
+
     }
     else{
         saudacao = 'Boa tarde'
-        
+
     }
     mensagem = txt.textContent
     txt.innerHTML = `${saudacao}, ${mensagem}`
@@ -52,7 +52,7 @@ function criaResposta() {//verificar se possivel exclusao logica
 function exibeRespostas() {
     let section = document.getElementById('section')
     const objeto_js = JSON.parse(localStorage.getItem('respostas'))//converte o JSON em objeto javascript de volta
-    
+
     objeto_js.map((resposta) => {//mapeia o objeto javascript e executa a função para cada resposta
     let div = document.createElement('div')
     div.innerHTML=`
@@ -96,3 +96,4 @@ function updateResposta (id, novo_titulo, novo_conteudo){
 
 updateResposta(2, 'titulo atualizado', 'conteudo atualizado')
 */
+
