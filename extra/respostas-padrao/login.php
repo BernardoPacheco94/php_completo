@@ -23,7 +23,7 @@ if (isset($_POST['btn_entrar'])){
     $user->login($name, $pass);
 }
 
-if(isset($_POST['btn_cadastrar'])){
+else if(isset($_POST['btn_cadastrar'])){
     $name = $_POST['input_name'];
     $pass = $_POST['input_pass'];
 
@@ -33,3 +33,10 @@ if(isset($_POST['btn_cadastrar'])){
 
     $newUser->insert($name, $securePass);
 }
+
+else{
+    header('Location: login.html');
+}
+
+
+
