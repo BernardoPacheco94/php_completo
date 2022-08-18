@@ -37,11 +37,12 @@
         // echo "<br>";
         // echo "<br>";
     ?>
-        <div class="div_txt">
+        <div class="div_txt text-center">
             <h3 class="meu_h3"><?php echo $value['titulo'] ?></h3>
             <textarea class="minha_textarea" id="${<?php echo $key; ?>}"><?php echo $value['conteudo'] ?></textarea>
             <button onclick="copiar('${<?php echo $key; ?>}')">Copiar</button>
             <nav id="nav_resposta">
+                <br>
                 <button>Editar</button>
                 <button>Excluir</button>
             </nav>
