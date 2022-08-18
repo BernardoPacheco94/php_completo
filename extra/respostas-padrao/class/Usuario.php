@@ -34,7 +34,7 @@ class Usuario extends Model {
         }
     }
     
-    public function loadUser(){
+    public function logout(){
 
     }
 

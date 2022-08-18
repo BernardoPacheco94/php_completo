@@ -11,7 +11,7 @@
 </head>
 
 
-<body class="meu_body" onload="exibeRespostas()">
+<body class="meu_body" onload="">
 
     <header class="minha_header">
         <img src="logo.png" alt="logo">
@@ -22,32 +22,61 @@
         <h1 class="meu_h1">ANOTAÇÕES</h1>
 
     </section>
+    <?php
+    session_start();
+    require_once "config.php";
 
-    <footer>
+    $anotacoes = new Anotacao;
 
-    </footer>
+    $list = Anotacao::exibeAnotacoes();
+    foreach ($list as $key => $value) {
+        // print_r($value['titulo']);
+        // echo "<br>";
+        // print_r($value['conteudo']);
+        // echo "<br>";
+        // echo "<br>";
+        // echo "<br>";
+    ?>
+        <div class="div_txt">
+            <h3 class="meu_h3"><?php echo $value['titulo'] ?></h3>
+            <textarea class="minha_textarea" id="${<?php echo $key; ?>}"><?php echo $value['conteudo'] ?></textarea>
+            <button onclick="copiar('${<?php echo $key; ?>}')">Copiar</button>
+            <nav id="nav_resposta">
+                <button>Editar</button>
+                <button>Excluir</button>
+            </nav>
+        </div>
+
+    <?php
+    }
+
+    ?>
+
     <!-- Modal modal_cadastrar_resposta-->
     <div class="modal fade" id="modal_cadastrar_resposta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <form action="" class="form">
+                <form action="salvaResposta.php" class="form" method="POST">
+                    <div class="modal-header">
                         <input type="text" name="input_titulo" id="input_titulo" placeholder="Título">
                         <button type="button" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                </div>
-                <div class="modal-body">
-                    <textarea class="minha_textarea" name="textarea_modal" id="textarea_modal" cols="30" rows="10" placeholder="Nova Resposta"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" id="fechar_modal">Fechar</button>
-                    <button type="button" onclick="criaResposta()">Salvar</button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="minha_textarea" name="textarea_modal" id="textarea_modal" cols="30" rows="10" placeholder="Nova Resposta"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" id="fechar_modal">Fechar</button>
+                        <button type="submit" onclick="" name="btn_salvar">Salvar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+    <footer>
+
+    </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
