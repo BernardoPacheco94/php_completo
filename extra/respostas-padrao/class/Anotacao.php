@@ -33,6 +33,15 @@ class Anotacao extends Model{
 
         // return array($anotacoes -> getData());
     }
+
+    public function loadById($idaAnotacao){
+        $sql = new sql;
+
+        $response = $sql->select("SELECT * FROM tb_anotacoes WHERE idanotacao = :IDANOTACAO",array(":IDANOTACAO"=>$idaAnotacao));
+
+        $this->setData($response[0]);
+
+    }
 }
 
 ?>

@@ -34,6 +34,7 @@ else if(isset($_POST['btn_cadastrar'])){
     $newUser->insert($name, $securePass);
 }
 
+
 else{
     header('Location: login.html');
 }

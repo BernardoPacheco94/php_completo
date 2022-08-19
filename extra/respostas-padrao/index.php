@@ -11,11 +11,12 @@
 </head>
 
 
-<body class="meu_body" onload="">
+<body class="meu_body">
 
     <header class="minha_header">
         <img src="logo.png" alt="logo">
         <button type="button" data-toggle="modal" data-target="#modal_cadastrar_resposta">Incluir</button>
+        <a href="logout.php"><button type="button">Sair</button></a>
     </header>
 
     <section id="section" class="minha_section">
@@ -27,25 +28,46 @@
     require_once "config.php";
 
     $anotacoes = new Anotacao;
-
+    
     $list = Anotacao::exibeAnotacoes();
     foreach ($list as $key => $value) {
-        // print_r($value['titulo']);
-        // echo "<br>";
-        // print_r($value['conteudo']);
-        // echo "<br>";
-        // echo "<br>";
-        // echo "<br>";
-    ?>
+        ?>
         <div class="div_txt text-center">
             <h3 class="meu_h3"><?php echo $value['titulo'] ?></h3>
             <textarea class="minha_textarea" id="${<?php echo $key; ?>}"><?php echo $value['conteudo'] ?></textarea>
             <button onclick="copiar('${<?php echo $key; ?>}')">Copiar</button>
             <nav id="nav_resposta">
                 <br>
-                <button>Editar</button>
+                <button type="button" data-toggle="modal" data-target="#modal_editar_resposta<?php echo $key; ?>">Editar</button>
                 <button>Excluir</button>
+                
             </nav>
+        </div>
+        <?php 
+        
+        
+        ?>
+        <!-- Modal modal_editar_resposta-->
+        <div class="modal fade" id="modal_editar_resposta<?php echo $key; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="editaResposta.php" class="form" method="POST">
+                        <div class="modal-header">
+                            <input type="text" name="input_titulo" id="input_titulo" value="<?php echo $value['titulo'] ?>">
+                            <button type="button" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class="minha_textarea" name="textarea_modal" id="textarea_modal" cols="30" rows="10" placeholder="Nova Resposta"><?php echo $value['conteudo'] ?></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" id="fechar_modal">Fechar</button>
+                            <button type="submit" onclick="" name="btn_salvar">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     <?php
@@ -75,6 +97,9 @@
             </div>
         </div>
     </div>
+
+
+
     <footer>
 
     </footer>
