@@ -24,6 +24,8 @@ function copiar(id){
 }
 
 
+
+
 //Create
 function criaResposta() {//verificar se possivel exclusao logica
     let btn_fechar = document.querySelector('button#fechar_modal')

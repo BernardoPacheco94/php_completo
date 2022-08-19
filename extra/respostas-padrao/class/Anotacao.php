@@ -2,7 +2,7 @@
 
 require_once "Model.php";
 
-class Anotacao extends Model{
+class Anotacao {//extends Model{
     
     public function novaAnotacao($titulo, $conteudo){
         $sessionData = $_SESSION['Usuario'];
@@ -26,21 +26,32 @@ class Anotacao extends Model{
 
         return $sql->select("SELECT * FROM tb_anotacoes WHERE idusuario = :IDUSUARIO",array(':IDUSUARIO'=> $idUsuario));
 
-        
-        // $anotacoes = new Anotacao;
-        // $anotacoes->setData($result);
-        
-
-        // return array($anotacoes -> getData());
     }
 
-    public function loadById($idaAnotacao){
+    // public function loadById($idaAnotacao){
+    //     $sql = new sql;
+
+    //     $response = $sql->select("SELECT * FROM tb_anotacoes WHERE idanotacao = :IDANOTACAO",array(":IDANOTACAO"=>$idaAnotacao));
+
+    //     $this->setData($response[0]);
+
+    // }
+
+    public function updateAnotacao($titulo='', $conteudo='', $id){
+
         $sql = new sql;
+        
+        $sql->execQuery("UPDATE tb_anotacoes SET titulo = :TITULO, conteudo = :CONTEUDO WHERE idanotacao = :IDANOTACAO",array(
+            ':TITULO'=>$titulo,
+            ':CONTEUDO'=>$conteudo,
+            ':IDANOTACAO'=> $id
+        ));
+    }
 
-        $response = $sql->select("SELECT * FROM tb_anotacoes WHERE idanotacao = :IDANOTACAO",array(":IDANOTACAO"=>$idaAnotacao));
-
-        $this->setData($response[0]);
-
+    public function deleteAnotacao($idAnotacao)
+    {
+        $sql = new sql;
+        $sql->execQuery("DELETE FROM tb_anotacoes WHERE idanotacao = :ID", array(":ID" => $idAnotacao));        
     }
 }
 

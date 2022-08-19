@@ -39,7 +39,10 @@
             <nav id="nav_resposta">
                 <br>
                 <button type="button" data-toggle="modal" data-target="#modal_editar_resposta<?php echo $key; ?>">Editar</button>
-                <button>Excluir</button>
+                <form action="editaResposta.php" method="POST" class="d-inline">
+                <input type="text" name="input_id" id="input_id" hidden value="<?php echo $value['idanotacao'] ?>">
+                    <button type="submit" name="btn_excluir">Excluir</button>
+                </form>
                 
             </nav>
         </div>
@@ -54,6 +57,7 @@
                     <form action="editaResposta.php" class="form" method="POST">
                         <div class="modal-header">
                             <input type="text" name="input_titulo" id="input_titulo" value="<?php echo $value['titulo'] ?>">
+                            <input type="text" name="input_id" id="input_id" hidden value="<?php echo $value['idanotacao'] ?>">
                             <button type="button" data-dismiss="modal" aria-label="Fechar">
                                 <span aria-hidden="true">&times;</span>
                             </button>
