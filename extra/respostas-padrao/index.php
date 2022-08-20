@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/4c5a422e1b.js" crossorigin="anonymous"></script>
     <title>Respostas Padrão</title>
 </head>
 
@@ -14,9 +16,37 @@
 <body class="meu_body">
 
     <header class="minha_header">
-        <img src="logo.png" alt="logo">
+        <nav class="navbar navbar-expand-md navbar-light">
+            <img src="logo-si.png" alt="logo">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação" style="background-color: #008AA4;">
+                <span class="text-white"><i class="fa-solid fa-bars"></i></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+                <ul class="navbar-nav ml-5 w-100">
+                    <li class="nav-item m-3 mx-auto">
+                    <button type="button" data-toggle="modal" data-target="#modal_cadastrar_resposta">Incluir</button>
+                    </li>
+                    <form class="container-fluid">
+                        <div class="row ml-3 my-3 container">
+                            <input class="form-control col-8 d-inline" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+                            <button class="d-inline mt-1 ml-2 col-3" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
+
+
+                    <li class="mx-auto mt-3">
+                        <!-- <button class="mr-sm-2">Sair</button> -->
+                        <a href="logout.php"><button class="mr-sm-2" type="button">Sair</button></a> 
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!-- <img src="logo.png" alt="logo">
         <button type="button" data-toggle="modal" data-target="#modal_cadastrar_resposta">Incluir</button>
-        <a href="logout.php"><button type="button">Sair</button></a>
+        <a href="logout.php"><button class="mr-sm-2" type="button">Sair</button></a> -->
     </header>
 
     <section id="section" class="minha_section">
@@ -28,10 +58,10 @@
     require_once "config.php";
 
     $anotacoes = new Anotacao;
-    
+
     $list = Anotacao::exibeAnotacoes();
     foreach ($list as $key => $value) {
-        ?>
+    ?>
         <div class="div_txt text-center">
             <h3 class="meu_h3"><?php echo $value['titulo'] ?></h3>
             <textarea class="minha_textarea" id="${<?php echo $key; ?>}"><?php echo $value['conteudo'] ?></textarea>
@@ -40,15 +70,15 @@
                 <br>
                 <button type="button" data-toggle="modal" data-target="#modal_editar_resposta<?php echo $key; ?>">Editar</button>
                 <form action="editaResposta.php" method="POST" class="d-inline">
-                <input type="text" name="input_id" id="input_id" hidden value="<?php echo $value['idanotacao'] ?>">
+                    <input type="text" name="input_id" id="input_id" hidden value="<?php echo $value['idanotacao'] ?>">
                     <button type="submit" name="btn_excluir">Excluir</button>
                 </form>
-                
+
             </nav>
         </div>
-        <?php 
-        
-        
+        <?php
+
+
         ?>
         <!-- Modal modal_editar_resposta-->
         <div class="modal fade" id="modal_editar_resposta<?php echo $key; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

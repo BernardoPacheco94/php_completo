@@ -2,7 +2,7 @@
 
 require_once "Model.php";
 
-class Anotacao {//extends Model{
+class Anotacao extends Model{
     
     public function novaAnotacao($titulo, $conteudo){
         $sessionData = $_SESSION['Usuario'];
@@ -28,14 +28,6 @@ class Anotacao {//extends Model{
 
     }
 
-    // public function loadById($idaAnotacao){
-    //     $sql = new sql;
-
-    //     $response = $sql->select("SELECT * FROM tb_anotacoes WHERE idanotacao = :IDANOTACAO",array(":IDANOTACAO"=>$idaAnotacao));
-
-    //     $this->setData($response[0]);
-
-    // }
 
     public function updateAnotacao($titulo='', $conteudo='', $id){
 
