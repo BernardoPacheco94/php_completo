@@ -26,7 +26,7 @@ class Usuario extends Model {
 
             $_SESSION[Usuario::SESSION] = $user->getData();
 
-            header('Location: index.php');
+            header("Location: ..".DIRECTORY_SEPARATOR."index.php");
             
             return $user;
         } else {            
@@ -34,9 +34,7 @@ class Usuario extends Model {
         }
     }
     
-    public function logout(){
-
-    }
+   
 
     public function insert($name, $pass){
 
@@ -47,6 +45,6 @@ class Usuario extends Model {
             ':PASS'=>$pass
         ));
 
-        header('Location: login.html');
+        header("Location: ..".DIRECTORY_SEPARATOR."app".DIRECTORY_SEPARATOR."login.html");
     }
 }

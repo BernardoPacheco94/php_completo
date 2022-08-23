@@ -16,7 +16,7 @@ if(isset($_POST['btn_salvar']))
 
     $anotacao->updateAnotacao($titulo, $conteudo, $id);
 
-    header('Location: index.php');    
+    header("Location: ..".DIRECTORY_SEPARATOR."index.php");    
 }
 
 if(isset($_POST['btn_excluir']))
@@ -25,5 +25,5 @@ if(isset($_POST['btn_excluir']))
     
     $delecao = new Anotacao;
     $delecao->deleteAnotacao($id);
-    header('Location: index.php');
+    header("Location: ..".DIRECTORY_SEPARATOR."index.php");
 }

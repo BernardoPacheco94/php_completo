@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="style/style.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/4c5a422e1b.js" crossorigin="anonymous"></script>
+    <title>Respostas Padrão</title>
+</head>
+
+
+<body class="meu_body">
+
+    <header class="minha_header">
+        <nav class="navbar navbar-expand-md navbar-light">
+            <a href="index.php"><img src="img/logo-si.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação" style="background-color: #008AA4;">
+                <span class="text-white"><i class="fa-solid fa-bars"></i></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+                <ul class="navbar-nav ml-5 w-100">
+                    <li class="nav-item m-3 mx-auto">
+                        <button type="button" data-toggle="modal" data-target="#modal_cadastrar_resposta">Incluir </button>
+                    </li>
+                    <form action="search.php" method="POST" class="container-fluid">
+                        <div class="row ml-3 my-3 container">
+                            <input class="form-control col-8 d-inline" type="search" name="search" id="search" placeholder="Pesquisar" aria-label="Pesquisar">
+                            <button class="d-inline mt-1 ml-2 col-3" name="btn_pesquisar" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
+
+
+                    <li class="mx-auto mt-3">
+                        <a href="src/logout.php"><button class="mr-sm-2" type="button">Sair</button></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <section id="section" class="minha_section container">
+        <h1 class="meu_h1 p-1"><i class="fa-solid fa-file-pen"></i> ANOTAÇÕES</h1>

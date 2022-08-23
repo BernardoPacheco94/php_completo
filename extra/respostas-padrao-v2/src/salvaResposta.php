@@ -15,4 +15,6 @@ if(isset($_POST['btn_salvar']))
 
     $anotacao->novaAnotacao($titulo, $conteudo);
 
+    header("Location: ..".DIRECTORY_SEPARATOR."index.php");
+
 }

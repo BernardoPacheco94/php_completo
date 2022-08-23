@@ -129,7 +129,7 @@
                     <div class="modal-content">
                         <form action="salvaResposta.php" class="form" method="POST">
                             <div class="modal-header">
-                                <input type="text" name="input_titulo" id="input_titulo" placeholder="Título" class="w-100 mr-3 text-center" required>
+                                <input type="text" name="input_titulo" id="input_titulo" placeholder="Título" class="w-100 mr-3 tesx" required>
                                 <button type="button" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

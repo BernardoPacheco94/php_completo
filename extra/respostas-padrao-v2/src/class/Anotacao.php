@@ -53,6 +53,6 @@ class Anotacao extends Model{
     $idUsuario = $sessionData['idusuario'];
     $sql = new sql;
 
-    return $sql->select("SELECT * FROM tb_anotacoes WHERE conteudo LIKE :SEARCH OR titulo LIKE :SEARCH AND idusuario = :IDUSUARIO ORDER BY titulo",array(":SEARCH"=>"%".$search."%", ":IDUSUARIO"=>$idUsuario));
+    return $sql->select("SELECT * FROM tb_anotacoes WHERE (conteudo LIKE :SEARCH OR titulo LIKE :SEARCH) AND idusuario = :IDUSUARIO ORDER BY titulo",array(":SEARCH"=>"%".$search."%", ":IDUSUARIO"=>$idUsuario));
     }
 }

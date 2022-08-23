@@ -34,6 +34,17 @@
     margin: 0px;
 }
 
+.bg-gradiente{
+    background-image: linear-gradient(180deg, var(--cor5), var(--cor1));
+    background-attachment: fixed;    
+}
+
+.login-config{
+    background-color: var(--cor4);
+    margin-top: 25vh;
+    box-shadow: 3px 3px 8px -3px rgba(0, 0, 0, 0.781);
+}
+
 .minha_section{
     border: 1px solid rgba(0, 0, 0, 0.24);
     border-radius: 4px;
@@ -70,6 +81,18 @@
 
 button{
     width: 100px;    
+    height: 30px;
+    border: none;
+    background-color: var(--cor5);
+    color: var(--cor1);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.945);
+}
+
+.btn-personalizado{
+    min-width: 100px;
+    margin: 5px;    
     height: 30px;
     border: none;
     background-color: var(--cor5);
