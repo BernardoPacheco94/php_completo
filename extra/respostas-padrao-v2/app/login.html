@@ -15,20 +15,34 @@
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/4c5a422e1b.js" crossorigin="anonymous"></script>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
     <title>Login</title>
 </head>
 
 
 <body class="bg-gradiente container text-center">
-    <form class="form container-fluid col-xs-12 xol-sm-12 col-md-10 col-lg-8 col-xl-8 col-xxl-6 p-3 login-config" action="..\src\login.php" method="POST">
+    <form class="form container-fluid col-xs-12 xol-sm-12 col-md-10 col-lg-8 col-xl-8 col-xxl-6 p-3 login-config"
+        action="..\src\login.php" method="POST">
         <i class="fa-solid fa-user fa-4x text-white mb-3"></i>
         <br>
-        <input class="col-xs-9 col-sm-8 col-md-6 col-lg-6 col-xl-5 col-xxl-4 m-1" type="text" name="input_name" id="input_name" placeholder="Nome" required>
+        <input class="col-xs-9 col-sm-8 col-md-6 col-lg-6 col-xl-5 col-xxl-4 m-1" type="text" name="input_name"
+            id="input_name" placeholder="Nome" required>
         <br>
-        <input class="col-xs-9 col-sm-8 col-md-6 col-lg-6 col-xl-5 col-xxl-4 m-1" type="password" name="input_pass" id="input_pass" placeholder="Senha" required>
+        <input class="col-xs-9 col-sm-8 col-md-6 col-lg-6 col-xl-5 col-xxl-4 m-1" type="password" name="input_pass"
+            id="input_pass" placeholder="Senha" required>
         <br>
         <input class="btn-personalizado" type="submit" value="Entrar" name="btn_entrar">
-        <a href="newUser.html"><input class="btn-personalizado" type="button" name="novo_usuario" id="novo_usuario" value="Novo usuario"></a>
+        <a href="newUser.html"><input class="btn-personalizado" type="button" name="novo_usuario" id="novo_usuario"
+                value="Novo usuario"></a>
     </form>
 
 
