@@ -255,3 +255,12 @@ END
 -------MANIPULAR ARQUIVOS------
 
 Sempre haverão maneiras e processos pra trabalhar com o arquivo, como maneira de abrir, fechar, permissões de acesso.
+
+Upload: O upload de arquivos não é realizado diretamente. Cada arquivo vai subindo em pacotes para uma pasta temporária e depois de todos os pacotes estarem prontos é movida para outro diretório. Para receber um formulário com arquivos preciso colocar a propriedade 'enctype="multipart/form-data"' no html, e para receber no PHP ao invés de $_POST/GET preciso usar o $_FILES:
+----exemplo----
+    if ($_SERVER["REQUEST_METHOD"] === "POST")
+    {
+        $file = $_FILES["fileUpload"];
+    }
+
+OBS: TRATAR PARA NÃO RECEBER ARQUIVOS PHP, POIS PODEM SER EXECUTADOS NO SERVIDOR

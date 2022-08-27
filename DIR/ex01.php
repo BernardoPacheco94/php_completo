@@ -12,3 +12,4 @@ else
     echo "Diretório $name já existe";
     //rmdir($name); //Remove o diretório
 }
+
