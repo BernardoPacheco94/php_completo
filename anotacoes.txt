@@ -251,8 +251,8 @@ BEGIN
     SELECT * FROM tb_usuarios WHERE idusuario = LAST_INSERT_ID();
 END
 
-
 -------MANIPULAR ARQUIVOS------
+
 
 Sempre haverão maneiras e processos pra trabalhar com o arquivo, como maneira de abrir, fechar, permissões de acesso.
 
@@ -264,3 +264,10 @@ Upload: O upload de arquivos não é realizado diretamente. Cada arquivo vai sub
     }
 
 OBS: TRATAR PARA NÃO RECEBER ARQUIVOS PHP, POIS PODEM SER EXECUTADOS NO SERVIDOR
+
+
+-------JSON------
+
+Erro de baras duplas (\\)
+Para resolver esse problema, a função json_encode() possui um segundo parâmetro, chamado JSON_UNESCAPED_SLASHES, que melhora o visual das barras
+
