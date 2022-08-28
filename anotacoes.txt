@@ -271,3 +271,25 @@ OBS: TRATAR PARA NÃO RECEBER ARQUIVOS PHP, POIS PODEM SER EXECUTADOS NO SERVIDO
 Erro de baras duplas (\\)
 Para resolver esse problema, a função json_encode() possui um segundo parâmetro, chamado JSON_UNESCAPED_SLASHES, que melhora o visual das barras
 
+-------ERROS------
+
+Nem tudo é um erro de fato. Há diferenças:
+Erro -> Fatal Error
+Exceção -> Exception (tratadas com try catch)
+Avisos -> Warning (geralmente aparece em recursos depreciados)
+Noticias -> Notícias 
+
+Sobreposição de erro: Configurar para que o php execute uma função ao invés de exibir a mensagem padrão daquele erro:
+
+catch (\Throwable $th) {
+    echo json_encode(
+        array(
+            "code"=>$th->getCode(),
+            "message"=>$th->getMessage(),
+            "file"=>$th->getFile(),
+            "line"=>$th->getLine()
+        ),JSON_UNESCAPED_SLASHES
+    );
+}
+
+ou error_reporting();
