@@ -295,3 +295,10 @@ catch (\Throwable $th) {
 ou error_reporting();
 
 
+-------COMPOSER------
+
+Gerenciador de dependências do php, como tem o npm do nde, o pip do python, etc..
+
+Configrando ele corretamente no meu projeto, todas as dependencias necessárias serão incorporadas automaticamente.
+
+
