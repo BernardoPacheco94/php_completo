@@ -1,0 +1,13 @@
+{
+    "name": "bernardopacheco94/composer",
+    "description": "curso php",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Bernardopacheco94\\Composer\\": "src/"
+        }
+    },
+    "require": {
+        "monolog/monolog": "1.0.*"
+    }
+}
