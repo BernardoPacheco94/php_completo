@@ -1,10 +1,11 @@
 <?php
 
-require_once ("vendor/autoload.php");
+require_once ("vendor".DIRECTORY_SEPARATOR."autoload.php");
 
 
 // namespace
 use Rain\Tpl;
+
 
 
 // config
@@ -26,4 +27,4 @@ $tpl = new Tpl;
 //$tpl->assign( "week", array( "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ) );
 
 // draw the template
-$tpl->draw( "index.html" );
+$tpl->draw( "index" );
