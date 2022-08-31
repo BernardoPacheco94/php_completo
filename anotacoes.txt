@@ -367,6 +367,9 @@ Criação de camadas de segurança. Uma das camadas pode ser uma validação com
 É um ataque onde o hacker descobre o id da sessão do usuário (salvo nos arquivos cookie) e utiliza as informações do usuário que está nessa sessão.
 Utilizar o SSL evita esse tipo de ataque.
 
+- Criptografia (ex06)
+
+Criptografia atraves de openSSL_encrypt
 
 
 
