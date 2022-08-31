@@ -326,7 +326,8 @@ Evitado com: para comandos que utilizem o 'system' do php (que usam comandos do 
 Quando algum usuário aproveita a comunicação do sistema com o banco de dados e injeta um comando diretamente no banco.
 Evitado com: Fazendo as tratativas das informações de entrada, como 'is_numeric, str_len...', usando as aspas, utilizar PDO com bindparams.
 
-- Permissões de pastas
+
+- Permissões de pastas (ex03)
 
 As permissões de pasta vão de 0 a 7, sendo 7 o nível de maior acesso
 0 - nenhuma permissão
@@ -346,12 +347,27 @@ ex:0775
 Evtado com: Definição de permissão de acesso as pastas de updload e afins, para execução e leitura apenas (0775).
 
 
-- XSS (cross site scripting)
+- XSS (cross site scripting) (ex04)
 
 Inclusão de códigos html ou scripts nas entradas de dados da página (inputs).
 
 1 - Temporário: Não executa após atualização da página
-2 - Permanente: 
+2 - Permanente: Incluído em dados que irão para o banco, podendo a chegar em vários usuários.
+
+Evitado com: strip_tags->remove propriedades das tags ou html_special_chars, converte tudo para string, não interpretando tags
+
+
+- Defense in depth (ecommerce login)
+
+Criação de camadas de segurança. Uma das camadas pode ser uma validação com um token (alem de usuario e senha). Criptografia em senhas. Utilização de SSL para https
+
+
+- session hijacking (ex05)
+
+É um ataque onde o hacker descobre o id da sessão do usuário (salvo nos arquivos cookie) e utiliza as informações do usuário que está nessa sessão.
+Utilizar o SSL evita esse tipo de ataque.
+
+
 
 
 
