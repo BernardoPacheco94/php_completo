@@ -302,3 +302,14 @@ Gerenciador de dependências do php, como tem o npm do nde, o pip do python, etc
 Configrando ele corretamente no meu projeto, todas as dependencias necessárias serão incorporadas automaticamente.
 
 
+-------RAIN TPL------
+
+Uso de templates, que mesclam o código html com o php, gerenciado por um cache.
+
+
+-------SLIM------
+
+Framework para trabalhar com rotas no php.
+Cuidar a instalação, pois no arquivo .htacces há a configuração do Rewrite (reescreve a url) e ela pode ser diferente para cada servidor. 
+
+
