@@ -58,8 +58,8 @@
             <div id="ola" class="info-personalizada col-6">
                 <h1><i class="fa-solid fa-code"></i> <?php echo htmlspecialchars( $hello, ENT_COMPAT, 'UTF-8', FALSE ); ?>,</h1>
                 <br>
-                <h4>Me chamo Bernardo Pacheco</h4>
-                <h5>Sou desenvovedor Front-End</h5>
+                <h4><?php echo htmlspecialchars( $present, ENT_COMPAT, 'UTF-8', FALSE ); ?></h4>
+                <h5><?php echo htmlspecialchars( $occupation, ENT_COMPAT, 'UTF-8', FALSE ); ?></h5>
             </div>
         </div>
     </section>
@@ -68,10 +68,10 @@
     <section id="section-sobre-mim">
         <div id="container-sobre-mim" class="card-personalizado bg-personalizado-escuro">
             <div id="sobre-mim" class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <h1><i class="fa-solid fa-address-card"></i> Sobre mim</h1>
-                <h6>Sou natural de Santa Maria - RS</h6>
-                <h6>Nascido em Dezembro/1994</h6>
-                <h6>Entusiasta da tecnologia</h6>
+                <h1><i class="fa-solid fa-address-card"></i> <?php echo htmlspecialchars( $about, ENT_COMPAT, 'UTF-8', FALSE ); ?></h1>
+                <h6><?php echo htmlspecialchars( $from, ENT_COMPAT, 'UTF-8', FALSE ); ?></h6>
+                <h6><?php echo htmlspecialchars( $born, ENT_COMPAT, 'UTF-8', FALSE ); ?></h6>
+                <h6><?php echo htmlspecialchars( $rooter, ENT_COMPAT, 'UTF-8', FALSE ); ?></h6>
             </div>
         </div>
     </section>
@@ -80,9 +80,9 @@
     <section id="section-experiencias">
         <div id="container-experiencias" class="card-personalizado bg-personalizado-escuro">
             <div id="experiencias" class="col-6">
-                <h1 title="Experiências" class="text-truncate"><i class="fa-solid fa-headset"></i> Experiências</h1>
-                <h6>Atuação na área de tecnologia, prestando suporte a softwares, pela empresa <a
-                        href="https://controlecelular.com.br" target="_blank">Sistemas & Informação</a></h6>
+                <h1 title="Experiências" class="text-truncate"><i class="fa-solid fa-headset"></i> <?php echo htmlspecialchars( $experience, ENT_COMPAT, 'UTF-8', FALSE ); ?></h1>
+                <h6><?php echo htmlspecialchars( $xp_descript, ENT_COMPAT, 'UTF-8', FALSE ); ?> <a
+                        href="https://controlecelular.com.br" target="_blank"><?php echo htmlspecialchars( $company, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></h6>
             </div>
         </div>
     </section>
