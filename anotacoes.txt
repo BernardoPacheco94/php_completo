@@ -313,3 +313,46 @@ Framework para trabalhar com rotas no php.
 Cuidar a instalação, pois no arquivo .htacces há a configuração do Rewrite (reescreve a url) e ela pode ser diferente para cada servidor. 
 
 
+-------SEGURANÇA------
+
+- Command injection (ex01):
+
+Escaneamento de pacotes trafegados entre usuário e servidor. Injetando comandos atavez da interceptação desses pacotes.
+Evitado com: para comandos que utilizem o 'system' do php (que usam comandos do SO) usar 'escapeshellcmd' na minha variável que recebe o post/get...
+
+
+- SQL injection (ex02):
+
+Quando algum usuário aproveita a comunicação do sistema com o banco de dados e injeta um comando diretamente no banco.
+Evitado com: Fazendo as tratativas das informações de entrada, como 'is_numeric, str_len...', usando as aspas, utilizar PDO com bindparams.
+
+- Permissões de pastas
+
+As permissões de pasta vão de 0 a 7, sendo 7 o nível de maior acesso
+0 - nenhuma permissão
+1 - execução (sem leitura, apenas executar algo da pasta)
+2 - gravação
+3 - 1 e 2
+4 - apenas leitura
+5 - leitura e execução (mais usado daqui pra cima)
+6 - leitura e gravação 
+7 - leitra, execução e gravação
+
+ex:0775 
+    |||_ convidados
+    ||__ grupos de usuários
+    |___ usuário que criou a(s) pasta(s)
+
+Evtado com: Definição de permissão de acesso as pastas de updload e afins, para execução e leitura apenas (0775).
+
+
+- XSS (cross site scripting)
+
+Inclusão de códigos html ou scripts nas entradas de dados da página (inputs).
+
+1 - Temporário: Não executa após atualização da página
+2 - Permanente: 
+
+
+
+
