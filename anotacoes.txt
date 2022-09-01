@@ -372,6 +372,10 @@ Utilizar o SSL evita esse tipo de ataque.
 Criptografia atraves de openSSL_encrypt
 
 
+-------ECOMMERCE------
 
+* Dicas gerais: 
+    Programar em inglês.
 
-
+* Banco:
+Tabelas principais (linkadas): tb_users, tb_orders, tb_products
