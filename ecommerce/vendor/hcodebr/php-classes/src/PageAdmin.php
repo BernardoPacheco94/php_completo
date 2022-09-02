@@ -4,8 +4,8 @@ namespace Hcode;
 
 class PageAdmin extends Page {
     
-    public function __construct($opts = array(), $tpl_dir = "/ecommerce/vendor/hcodebr/php-classes/src/views/admin/")
+    public function __construct($opts = array(), $tpl_dir = "/views/admin/")
     {
-        
+        parent::__construct($opts, $tpl_dir); //utiliza o construtor da classe Page
     }
 }

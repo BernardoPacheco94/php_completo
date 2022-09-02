@@ -12,14 +12,16 @@ class Page
         "data" => []
     ];
 
-    public function __construct($opts = array(), $tpl_dir = "/ecommerce/vendor/hcodebr/php-classes/src/views/")
+    
+
+    public function __construct($opts = array(), $tpl_dir = "/views/")
     {
         $this->options = array_merge($this->defaults, $opts);//o merge 'emenda' os arrays em um só, porém o array que vale é o segundo do paramentro em caso de conflito    
 
 
         $config = array(
             "tpl_dir"       => $_SERVER['DOCUMENT_ROOT'].$tpl_dir,//o $_server['document_root] serve para que seja apontado através do root do servidor
-            "cache_dir"     =>$_SERVER['DOCUMENT_ROOT']."/ecommerce/vendor/hcodebr/php-classes/src/views-cache/",
+            "cache_dir"     =>$_SERVER['DOCUMENT_ROOT']."/views-cache/",
             "debug"         => true 
         );
 
