@@ -378,6 +378,7 @@ Criptografia atraves de openSSL_encrypt
     > Programar em inglês.
     > o composer precisa ser instalado e configurado no servidor
     > o vendor (fornecedor) é um nome único, usado como um tipo de perfil para que eu armazene meus recursos do composer e busque outros recursos atraves do composer. No meu projeto a pasta vendor vai armazenar as dependencias do projeto, instaladas pelo composer.
+    > separar uma pasta para os recursos dos templates, (res): imagens, estilo, js, fontes...
 
 
 
