@@ -29,7 +29,7 @@ $app->get("/admin", function() {
 
 });
 
-$app->get('/admin/login', function(){
+$app->get("/admin/login", function(){
 	$page = new PageAdmin(
 		["header" => false,
 		"footer" => false]
@@ -38,17 +38,19 @@ $app->get('/admin/login', function(){
 	$page->setTpl("login");
 });
 
-$app->post('/admin/login', function(){
+$app->post("/admin/login", function(){
 	User::login($_POST["login"], $_POST["password"]);
 
 	header('Location: /admin');
+	exit;
 });
 
-$app->get('/admin/logout', function ()
+$app->get("/admin/logout", function ()
 {
 	User::logout();
 
-	header('Location: /admin/login/');
+	header('Location: /admin/login');
+	exit;
 });
 
 $app->run();

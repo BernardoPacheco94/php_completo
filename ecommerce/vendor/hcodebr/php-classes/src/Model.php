@@ -13,11 +13,11 @@ class Model {
         $fieldName = substr($name, 3, strlen($name));
 
         switch ($method) {
-            case 'set':
+            case "set":
                 $this->values[$fieldName] = $arguments[0];
             break;
             
-            case 'get':
+            case "get":
                 return $this->values[$fieldName];
             break;
         }
