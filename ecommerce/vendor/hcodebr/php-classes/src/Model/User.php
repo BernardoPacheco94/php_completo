@@ -3,6 +3,7 @@
 namespace Hcode\Model;
 
 use \Hcode\DB\Sql;
+use Hcode\Mailer;
 use \Hcode\Model;
 use sql as GlobalSql;
 
@@ -163,6 +164,16 @@ class User extends Model
                 $code = base64_encode(openssl_encrypt($dataRecovery["idrecovery"], 'AES-128-CBC', SECRET, 0, SECRET));
 
                 $link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+
+                $mailer = new Mailer($data["desemail"], $data["desperson"], 'Recuperação de senha - HCode Store', 'forgot', array(
+                    "name" => $data["desperson"],
+                    "link" => $link
+                ));
+
+                $mailer->send();
+
+                return $data;
+
             }
         }
     }

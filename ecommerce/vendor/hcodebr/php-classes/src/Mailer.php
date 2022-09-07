@@ -88,4 +88,9 @@ class Mailer
         //Attach an image file
         //$mail->addAttachment('images/phpmailer_mini.png');
     }
+
+    public function send()
+    {
+        return $this->mail->send();
+    }
 }
