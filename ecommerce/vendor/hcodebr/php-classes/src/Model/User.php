@@ -8,7 +8,7 @@ use sql as GlobalSql;
 
 class User extends Model
 {
-
+    
     const SESSION = "User"; //constante da sessao
 
     public static function login($login, $password)
@@ -123,5 +123,47 @@ class User extends Model
         $sql->query("CALL sp_users_delete (:iduser)", array(
             ":iduser" => $this->getiduser()
         ));
+    }
+
+    public static function getForgot($email)
+    {
+        $sql = new Sql;
+
+        $results = $sql->select("
+            SELECT * FROM tb_persons a
+            INNER JOIN tb_users b USING(idperson)
+            WHERE a.desemail = :EMAIL;
+        ", array(
+            "email" => $email
+        ));
+
+        if(!count($results))
+        {
+            throw new \Exception("Não foi possível recuperar a senha");
+            
+        }
+        else
+        {
+            $data = $results[0];
+            $queryReturn = $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip)", array(
+                ":iduser" => $data["iduser"],
+                ":desip" => $_SERVER["REMOTE_ADDR"]
+            )); 
+            
+            if(!count($queryReturn))
+            {
+                throw new \Exception("Não foi possível recuperar a senha");
+                
+            }
+            else
+            {
+                $dataRecovery = $queryReturn[0];
+
+                define('SECRET', pack('a16', 'senha'));
+                $code = base64_encode(openssl_encrypt($dataRecovery["idrecovery"], 'AES-128-CBC', SECRET, 0, SECRET));
+
+                $link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+            }
+        }
     }
 }
