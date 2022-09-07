@@ -6,11 +6,12 @@ use \Hcode\DB\Sql;
 use \Hcode\Model;
 use sql as GlobalSql;
 
-class User extends Model {
+class User extends Model
+{
 
-    const SESSION = "User";//constante da sessao
+    const SESSION = "User"; //constante da sessao
 
-    public static function login ($login, $password) 
+    public static function login($login, $password)
     {
         $sql = new Sql;
 
@@ -19,14 +20,13 @@ class User extends Model {
         ));
 
 
-        if (!count($result))
-        {
-            throw new \Exception("Usuário inexistente ou senha inválida");// a contrabarra no Exception é pq estamos usando o namespace, e nao há classe exception nesse namespace, portanto a classe exception deve vir da raiz
+        if (!count($result)) {
+            throw new \Exception("Usuário inexistente ou senha inválida"); // a contrabarra no Exception é pq estamos usando o namespace, e nao há classe exception nesse namespace, portanto a classe exception deve vir da raiz
         }
 
-        $data = $result[0];//joga em data o resutado da query
+        $data = $result[0]; //joga em data o resutado da query
 
-        if (password_verify($password, $data['despassword']))//valida a senha e inicia a sessao
+        if (password_verify($password, $data['despassword'])) //valida a senha e inicia a sessao
         {
             $user = new User();
 
@@ -34,17 +34,15 @@ class User extends Model {
 
             $user->setData($data);
 
-            $_SESSION[User::SESSION] = $user->getData();//pega os dados e atribui na sessao
+            $_SESSION[User::SESSION] = $user->getData(); //pega os dados e atribui na sessao
 
             return $user;
-        }
-        else
-        {
+        } else {
             throw new \Exception("Usuário inexistente ou senha inválida");
         }
     }
 
-    public static function verifyLogin($inadmin = true) 
+    public static function verifyLogin($inadmin = true)
     {
         if (
             !isset($_SESSION[User::SESSION])
@@ -54,8 +52,7 @@ class User extends Model {
             !(int)$_SESSION[User::SESSION]["iduser"] > 0
             ||
             (bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin
-        ) 
-        {
+        ) {
             header('Location: /admin/login');
             exit;
         }
@@ -71,5 +68,22 @@ class User extends Model {
         $sql = new Sql();
 
         return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING (idperson) ORDER BY b.desperson");
+    }
+
+    public function save()
+    {
+        $sql = new Sql;
+
+        $results = $sql->select("CALL sp_users_save (:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
+            ":desperson" => $this->getdesperson(),
+            ":deslogin" => $this->getdeslogin(),
+            ":despassword" => $this->getdespassword(),
+            ":desemail" => $this->getdesemail(),
+            ":nrphone" => $this->getnrphone(),
+            ":inadmin" => $this->getinadmin()
+        ));
+
+
+        $this->setData($results[0]);
     }
 }
