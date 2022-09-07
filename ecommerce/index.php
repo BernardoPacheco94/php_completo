@@ -19,6 +19,8 @@ $app->get('/', function() {
 
 });
 
+
+//rota pagina admin
 $app->get("/admin", function() {
 
 	User::verifyLogin();
@@ -29,6 +31,8 @@ $app->get("/admin", function() {
 
 });
 
+
+//Rota fazer login
 $app->get("/admin/login", function(){
 	$page = new PageAdmin(
 		["header" => false,
@@ -38,6 +42,8 @@ $app->get("/admin/login", function(){
 	$page->setTpl("login");
 });
 
+
+//rota para pagina de admin
 $app->post("/admin/login", function(){
 	User::login($_POST["login"], $_POST["password"]);
 
@@ -45,6 +51,8 @@ $app->post("/admin/login", function(){
 	exit;
 });
 
+
+// rota para logut
 $app->get("/admin/logout", function ()
 {
 	User::logout();
@@ -53,6 +61,8 @@ $app->get("/admin/logout", function ()
 	exit;
 });
 
+
+//rota lista de usuarios
 $app->get("/admin/users", function()//lista users
 {
 	User::verifyLogin();
@@ -65,6 +75,7 @@ $app->get("/admin/users", function()//lista users
 	));
 });
 
+// rota cria usuarios
 $app->get("/admin/users/create", function()
 {
 	User::verifyLogin();
@@ -73,18 +84,37 @@ $app->get("/admin/users/create", function()
 	$page->setTpl("users-create");
 });
 
+
+//rota deleta usuarios ** antes de listar por causa da ordem da url
 $app->get("/admin/users/:iduser/delete", function($iduser){
 	User::verifyLogin();
+
+	$user = new User;
+
+	$user->get((int)$iduser);
+	$user->delete();
+
+	header('Location: /admin/users');
+	exit;
 });
 
+
+//rota carrega usuario para update
 $app->get("/admin/users/:iduser", function($iduser)
 {
 	User::verifyLogin();
+
+	$user = new User;
+	$user->get((int)$iduser);
 	
 	$page = new PageAdmin();
-	$page->setTpl("users-update");
+	$page->setTpl("users-update", array(
+		"user" => $user->getData()
+	));
 });
 
+
+//rota cria usuario
 $app->post("/admin/users/create", function(){
 	User::verifyLogin();
 
@@ -102,8 +132,21 @@ $app->post("/admin/users/create", function(){
 	exit;
 });
 
+
+// rota edita usuario
 $app->post("/admin/users/:iduser", function($iduser){
 	User::verifyLogin();
+
+	$user = new User;
+
+	$_POST["inadmin"] = (isset($_POST["inadmin"])) ? 1 : 0;
+
+	$user->get((int)$iduser);
+	$user->setData($_POST);
+	$user->update();
+
+	header("Location: /admin/users");
+	exit;
 });
 
 
