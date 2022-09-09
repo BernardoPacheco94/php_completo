@@ -75,10 +75,12 @@ class User extends Model
     {
         $sql = new Sql;
 
+        $securePass = password_hash($this->getdespassword(), PASSWORD_DEFAULT, ["cost" => 10]);
+
         $results = $sql->select("CALL sp_users_save (:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
             ":desperson" => $this->getdesperson(),
             ":deslogin" => $this->getdeslogin(),
-            ":despassword" => $this->getdespassword(),
+            ":despassword" => $securePass,
             ":desemail" => $this->getdesemail(),
             ":nrphone" => $this->getnrphone(),
             ":inadmin" => $this->getinadmin()

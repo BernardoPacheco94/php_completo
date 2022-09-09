@@ -123,8 +123,6 @@ $app->post("/admin/users/create", function () {
 
 	$user->save();
 
-	var_dump($user);
-
 	header('Location: /admin/users');
 	exit;
 });
