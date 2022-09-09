@@ -6,6 +6,7 @@ require_once("vendor/autoload.php");
 use \Hcode\Page;
 use \Hcode\PageAdmin;
 use \Hcode\Model\User;
+use \Hcode\Model\Category;
 
 $app = new \Slim\Slim();
 
@@ -164,6 +165,7 @@ $app->post("/admin/forgot", function () {
 	exit;
 });
 
+//Rota email de reset de senha enviado
 $app->get("/admin/forgot/sent", function () {
 	$page = new PageAdmin(
 		[
@@ -175,6 +177,8 @@ $app->get("/admin/forgot/sent", function () {
 	$page->setTpl("forgot-sent");
 });
 
+
+//Rota de reset de senha
 $app->get("/admin/forgot/reset", function () {
 	$user = User::validForgotDecrypt($_GET["code"]);
 
@@ -191,6 +195,8 @@ $app->get("/admin/forgot/reset", function () {
 	));
 });
 
+
+//rota de captura da senha para reset
 $app->post("/admin/forgot/reset", function () {
 	$forgot = User::validForgotDecrypt($_POST["code"]);
 	User::setForgotUser($forgot["idrecovery"]);
@@ -217,5 +223,33 @@ $app->post("/admin/forgot/reset", function () {
 	$page->setTpl("forgot-reset-success");
 });
 
+//rota para admin - categorias
+$app -> get("/admin/categories", function(){
+	
+	$categories = Category::listAll();
+	
+	$page = new PageAdmin();
+
+	$page->setTpl("categories", [
+		'categories' => $categories
+	]);
+});
+
+
+//rota para criar categoria
+$app->get("/admin/categories/create", function(){
+	$page = new PageAdmin();
+	
+	$page->setTpl("categories-create");
+});
+
+$app->post("/admin/categories/create", function(){
+	$category = new Category;
+	$category->setData($_POST);
+	$category->save();
+
+	header('Location: /admin/categories');
+	exit;
+});
 
 $app->run();

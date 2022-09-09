@@ -18,7 +18,7 @@ class Model {
             break;
             
             case "get":
-                return $this->values[$fieldName];
+                return (isset($this->values[$fieldName])) ? $this->values[$fieldName] : NULL;
             break;
         }
 
@@ -37,7 +37,7 @@ class Model {
     //método get dinamico
     public function getData()
     {
-        return $this->values;        
+        return $this->values;
     }
 
 }
