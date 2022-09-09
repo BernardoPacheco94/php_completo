@@ -177,5 +177,7 @@ $app->get("/admin/forgot/sent", function(){
 	$page->setTpl("forgot-sent");
 });
 
+$app->get("/admin/");
+
 
 $app->run();

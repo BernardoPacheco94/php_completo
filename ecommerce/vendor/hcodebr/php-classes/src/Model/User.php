@@ -135,7 +135,7 @@ class User extends Model
             INNER JOIN tb_users b USING(idperson)
             WHERE a.desemail = :EMAIL;
         ", array(
-            "email" => $email
+            ":EMAIL" => $email
         ));
 
         if(!count($results))
