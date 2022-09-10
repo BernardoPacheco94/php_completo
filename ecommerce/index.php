@@ -265,4 +265,30 @@ $app->get("/admin/categories/:idcategory/delete", function($idcategory){
 	exit;
 });
 
+// Rota para edição de categoria
+$app->get("/admin/categories/:idcategory", function($idcategory){
+	
+	$category = new Category;
+	$category->get((int)$idcategory);
+	
+	$page = new PageAdmin();
+
+	$page->setTpl("categories-update", [
+		'category'=>$category->getData()
+	]);
+
+});
+
+//Rota para salvar categoria editada
+$app->post("/admin/categories/:idcategory", function($idcategory){
+	
+	$category = new Category;
+	$category->get((int)$idcategory);
+	$category->setData($_POST);
+	$category->save();
+
+	header('Location: /admin/categories');
+	exit;
+});
+
 $app->run();
