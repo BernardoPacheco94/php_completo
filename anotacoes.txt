@@ -381,7 +381,7 @@ Criptografia atraves de openSSL_encrypt
     > separar uma pasta para os recursos dos templates, (res): imagens, estilo, js, fontes...
     > Um update é um delete e um insert, portanto ao fazer um update não há problema em fazer o update de todos os campos
     > Tudo que vem pela url é convertido para texto, por isso em algumas situações é necessário fazer o casting
-    
+    > explode -> usado para converter string para array, o implode faz o oposto, convertendo array para string
 
 
 
