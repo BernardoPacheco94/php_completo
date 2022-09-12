@@ -30,7 +30,7 @@ class Category extends Model
         Category::updateFile();
     }
 
-    public function get($idcategory)
+    public function get($idcategory)//faz o set do objeto passado no parametro
     {
         $sql = new Sql;
 
@@ -52,14 +52,14 @@ class Category extends Model
         Category::updateFile();
     }
 
-    public static function updateFile()
+    public static function updateFile()//esse método separa as categorias do arquivo footer
     {
         $categories = Category::listAll();
 
         $html = [];
 
         foreach ($categories as $row) {
-            array_push($html, '<li><a href="/category/'.$row['idcategory'].'">'.$row['descategory'].'</a></li>
+            array_push($html, '<li><a href="/categories/'.$row['idcategory'].'">'.$row['descategory'].'</a></li>
             ');
         }
 

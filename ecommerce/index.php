@@ -297,4 +297,18 @@ $app->post("/admin/categories/:idcategory", function($idcategory){
 	exit;
 });
 
+//Rota para visualizar categoria
+$app->get("/categories/:idcategoria", function($idcategory){
+	$category = new Category;
+
+	$category->get((int)$idcategory);
+
+	$page = new Page;
+
+	$page->setTpl("category",[
+		'category' => $category->getData(),
+		'products'=>[]
+	]);
+});
+
 $app->run();
