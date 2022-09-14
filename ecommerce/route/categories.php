@@ -92,3 +92,5 @@ $app->get("/categories/:idcategoria", function($idcategory){
 		'products'=>[]
 	]);
 });
+
+

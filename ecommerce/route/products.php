@@ -57,3 +57,30 @@ $app->get("/admin/products/:idproduct", function($idproduct){
     ]);
 
 });
+
+//rota para salvar categoria editada
+$app->post("/admin/products/:idproduct", function($idproduct){
+    User::verifyLogin();
+    
+    $products = new Product;
+    $products->get((int)$idproduct);
+    $products->setData($_POST);
+
+    $products->save();
+    
+    header('Location: /admin/products');
+    exit;
+});
+
+//rota para deletar categoria
+$app->get("/admin/products/:idproduct/delete", function($idproduct){
+    User::verifyLogin();
+    
+    $product = new Product;
+    $product->get((int)$idproduct);
+
+    $product->delete();
+
+    header('Location: /admin/products');
+    exit;
+});
