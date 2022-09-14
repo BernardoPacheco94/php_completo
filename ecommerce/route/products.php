@@ -56,7 +56,4 @@ $app->get("/admin/products/:idproduct", function($idproduct){
         'product'=> $product->getData()
     ]);
 
-    header('Location: /admin/products');
-    exit;
-
 });
