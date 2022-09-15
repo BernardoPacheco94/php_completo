@@ -16,6 +16,17 @@ class Product extends Model
         return $sql->select("SELECT * FROM tb_products ORDER BY desproduct");
     }
 
+    public static function checkList($list)
+    {
+        foreach ($list as &$row) {// o & serve para que a propria variavel row seja modificada
+            $p = new Product();
+            $p->setData($row);
+            $row = $p->getData();//aqui vai fazer os getters todos e pegar a foto do servidor, em cara row (&)
+        }
+
+        return $list;//retorna toda a lista com getdata em todos os elementos
+    }
+
     public function save()
     {
         $sql = new Sql;
@@ -71,6 +82,7 @@ class Product extends Model
 
     public function setPhoto($file)
     {
+        
         $extension = explode('.', $file['name']);
         $extension = end($extension);
 
