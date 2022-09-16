@@ -8,7 +8,7 @@ use sql as GlobalSql;
 
 class Product extends Model
 {
-    
+
     public static function listAll()
     {
         $sql = new Sql();
@@ -18,13 +18,13 @@ class Product extends Model
 
     public static function checkList($list)
     {
-        foreach ($list as &$row) {// o & serve para que a propria variavel row seja modificada
+        foreach ($list as &$row) { // o & serve para que a propria variavel row seja modificada
             $p = new Product();
             $p->setData($row);
-            $row = $p->getData();//aqui vai fazer os getters todos e pegar a foto do servidor, em cara row (&)
+            $row = $p->getData(); //aqui vai fazer os getters todos e pegar a foto do servidor, em cara row (&)
         }
 
-        return $list;//retorna toda a lista com getdata em todos os elementos
+        return $list; //retorna toda a lista com getdata em todos os elementos
     }
 
     public function save()
@@ -45,7 +45,7 @@ class Product extends Model
         $this->setData($results[0]);
     }
 
-    public function get($idproduct)//faz o set do objeto passado no parametro
+    public function get($idproduct) //faz o set do objeto passado no parametro
     {
         $sql = new Sql;
 
@@ -68,12 +68,9 @@ class Product extends Model
 
     public function checkPhoto()
     {
-        if(file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR.'res'.DIRECTORY_SEPARATOR.'site'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'products'.DIRECTORY_SEPARATOR.$this->getidproduct().".jpg"))
-        {
-            $url = '/res/site/img/products/'.$this->getidproduct().'.jpg';
-        }
-        else
-        {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'res' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->getidproduct() . ".jpg")) {
+            $url = '/res/site/img/products/' . $this->getidproduct() . '.jpg';
+        } else {
             $url = '/res/site/img/products/product.jpg';
         }
 
@@ -82,26 +79,22 @@ class Product extends Model
 
     public function setPhoto($file)
     {
-        
+
         $extension = explode('.', $file['name']);
         $extension = end($extension);
 
-        switch($extension){
+        switch ($extension) {
 
             case "jpg":
             case "jpeg":
-
                 $image = imagecreatefromjpeg($file['tmp_name']);
                 break;
 
             case "gif":
-
                 $image = imagecreatefromgif($file['tmp_name']);
                 break;
-            
-            case "png":
 
-                $image = imagecreatefrompng($file['tmp_name']);
+            case "png":
                 break;
 
             case "webp":
@@ -111,10 +104,9 @@ class Product extends Model
             case "bmp":
                 $image = imagecreatefrombmp($file['tmp_name']);
                 break;
-                    
         }
 
-        $path = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR.'res'.DIRECTORY_SEPARATOR.'site'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'products'.DIRECTORY_SEPARATOR.$this->getidproduct().".jpg";
+        $path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'res' . DIRECTORY_SEPARATOR . 'site' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->getidproduct() . ".jpg";
         imagejpeg($image, $path);
         imagedestroy($image);
 
@@ -129,7 +121,4 @@ class Product extends Model
 
         return $values;
     }
-
-    
-
 }
