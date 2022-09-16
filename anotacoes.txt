@@ -388,3 +388,7 @@ Criptografia atraves de openSSL_encrypt
 
 * Banco:
 Tabelas principais (linkadas): tb_users, tb_orders, tb_products
+
+*Paginação:
+> Realizado uma query para trazer todos os produtos de uma categoria, usando o LIMIT, para configurar quantos produtos serão trazidos e a função SQL_CALC_FOUND_ROWS para saber o total de registros da query.
+
