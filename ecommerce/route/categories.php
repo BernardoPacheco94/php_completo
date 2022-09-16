@@ -79,18 +79,22 @@ $app->post("/admin/categories/:idcategory", function($idcategory){
 	exit;
 });
 
-//Rota para visualizar categoria
-$app->get("/categories/:idcategoria", function($idcategory){
+
+
+
+$app->get("/admin/categories/:idcategory/products", function($idcategory)
+{
+	User::verifyLogin();
+
 	$category = new Category;
-
+	
 	$category->get((int)$idcategory);
-
-	$page = new Page;
-
-	$page->setTpl("category",[
+	
+	$page = new PageAdmin();
+	
+	$page->setTpl("categories-products",[
 		'category' => $category->getData(),
-		'products'=>[]
+		'productsRelated'=>[],
+		'productsNotRelated'=>[]
 	]);
 });
-
-
