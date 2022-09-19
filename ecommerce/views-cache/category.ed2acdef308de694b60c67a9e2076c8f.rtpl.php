@@ -46,7 +46,7 @@
                         <?php } ?>
 
                         </ul>
-                    </nav>                        
+                    </nav>
                 </div>
             </div>
         </div>

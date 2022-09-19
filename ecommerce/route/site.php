@@ -17,7 +17,7 @@ $app->get('/', function () {
 	]);
 });
 
-//Rota para visualizar categoria
+//Rota para visualizar categoria limitando produtos por pagina
 $app->get("/categories/:idcategoria", function($idcategory){
 	$category = new Category();
 	
@@ -42,6 +42,20 @@ $app->get("/categories/:idcategoria", function($idcategory){
 		'category' => $category->getData(),
 		'products'=> $pagination['data'],
 		'pages'=>$pages
+	]);
+});
+
+// Rota para detalhes de um produto
+$app->get("/products/:desurl", function($desurl){
+	$product = new Product;
+
+	$product->getFromURL($desurl);
+
+	$page = new Page();
+
+	$page->setTpl("product-detail",[
+		'product'=>$product->getData(),
+		'categories'=>$product->getCategories()
 	]);
 });
 
