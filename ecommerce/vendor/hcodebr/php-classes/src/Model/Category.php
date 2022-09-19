@@ -119,22 +119,23 @@ class Category extends Model
         ]);
     }
 
-    public function getProductsPage ($page = 1, $itensPerPage = 3)
+    public function getProductsPage($page = 1, $itemsPerPage = 3)
     {
-        $start = ($page - 1) * $itensPerPage;//inicial do limit
+        $start = ($page - 1) * $itemsPerPage;//inicial do limit
 
         $sql = new Sql;
 
+
         $result = $sql->select("
-        SELECT SQL_CALC_FOUND_ROWS * 
+        SELECT SQL_CALC_FOUND_ROWS *
         FROM tb_products a
         INNER JOIN tb_productscategories b ON a.idproduct = b.idproduct
         INNER JOIN tb_categories c ON c.idcategory = b.idcategory
         WHERE c.idcategory = :idcategory
-        LIMIT $start, $itensPerPage;
-        ",[
-            ':idcategory'=>$this->getidcategory(),
-        ]);
+        LIMIT $start, $itemsPerPage;
+        ", array(
+             ":idcategory"=>$this->getidcategory()
+        ));
 
         $resultTotal = $sql -> select('
         SELECT FOUND_ROWS() AS nrtotal;
@@ -143,7 +144,7 @@ class Category extends Model
         return [
             'data'=>Product::checkList($result),
             'total'=>(int)$resultTotal[0]['nrtotal'],
-            'pages'=>ceil($resultTotal[0]['nrtotal'] / $itensPerPage)//quantidade de paginas geradas
+            'pages'=>ceil($resultTotal[0]['nrtotal'] / $itemsPerPage)//quantidade de paginas geradas, ceil arredonda numeros para cima
         ];
     }
 
