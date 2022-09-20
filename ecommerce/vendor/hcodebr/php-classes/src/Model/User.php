@@ -9,7 +9,7 @@ use sql as GlobalSql;
 
 class User extends Model
 {
-    
+
     const SESSION = "User"; //constante da sessao
 
     public static function login($login, $password)
@@ -43,18 +43,50 @@ class User extends Model
         }
     }
 
-    public static function verifyLogin($inadmin = true)
+    public  static function getFromSession()//retorna uma sessao vazia caso nao haja usuario
     {
-        if (
+        $user = new User;
+
+        if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]['iduser'] > 0) 
+        {
+            $user->setData($_SESSION[User::SESSION]);
+        }
+
+        return $user;
+    }
+
+    public static function checkLogin($inadmin = true)//verificar se está logado
+    {
+        if(
             !isset($_SESSION[User::SESSION])
             ||
             !$_SESSION[User::SESSION]
             ||
             !(int)$_SESSION[User::SESSION]["iduser"] > 0
-            ||
-            (bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin
-        ) {
-            header('Location: /admin/login');
+        )
+        {
+            //nao está logado
+            return false;
+        } else{
+            if($inadmin === true && (bool)$_SESSION[User::SESSION]["inadmin"] === true)
+            {
+                return true;
+            }
+            else if($inadmin === false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    public static function verifyLogin($inadmin = true)//verifica se o usuário está logado e é admin
+    {
+        if (User::checkLogin($inadmin)) {
+            header('Location: /admin/login');//redireciona para o login
             exit;
         }
     }
@@ -95,7 +127,7 @@ class User extends Model
         $sql = new Sql;
 
         $results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING (idperson) WHERE a.iduser = :iduser", array(
-            ":iduser"=>$iduser
+            ":iduser" => $iduser
         ));
 
         $this->setData($results[0]);
@@ -116,7 +148,7 @@ class User extends Model
         ));
 
 
-        $this->setData($results[0]);        
+        $this->setData($results[0]);
     }
 
     public function delete()
@@ -140,26 +172,18 @@ class User extends Model
             ":EMAIL" => $email
         ));
 
-        if(!count($results))
-        {
+        if (!count($results)) {
             throw new \Exception("Não foi possível recuperar a senha");
-            
-        }
-        else
-        {
+        } else {
             $data = $results[0];
             $queryReturn = $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip)", array(
                 ":iduser" => $data["iduser"],
                 ":desip" => $_SERVER["REMOTE_ADDR"]
-            )); 
-            
-            if(!count($queryReturn))
-            {
+            ));
+
+            if (!count($queryReturn)) {
                 throw new \Exception("Não foi possível recuperar a senha");
-                
-            }
-            else
-            {
+            } else {
                 $dataRecovery = $queryReturn[0];
 
                 define('SECRET', pack('a16', 'senha'));
@@ -175,7 +199,6 @@ class User extends Model
                 $mailer->send();
 
                 return $data;
-
             }
         }
     }
@@ -184,7 +207,7 @@ class User extends Model
     {
         define('SECRET', pack('a16', 'senha'));
         $idrecovery = base64_decode(
-            openssl_decrypt($code,'AES-128-CBC', SECRET, 0, SECRET)
+            openssl_decrypt($code, 'AES-128-CBC', SECRET, 0, SECRET)
         );
 
         $sql = new Sql;
@@ -201,12 +224,9 @@ class User extends Model
             DATE_ADD(a.dtregister, INTERVAL 1 HOUR) >= NOW();
         ", array(":idrecovery" => $idrecovery));
 
-        if(!count($result))
-        {
-            throw new \Exception("Não foi possível recuperar a senha");            
-        }
-        else
-        {
+        if (!count($result)) {
+            throw new \Exception("Não foi possível recuperar a senha");
+        } else {
             return $result[0];
         }
     }

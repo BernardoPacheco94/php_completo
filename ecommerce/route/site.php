@@ -1,6 +1,7 @@
 
 <?php
 
+use Hcode\Model\Cart;
 use \Hcode\Model\Category;
 use \Hcode\Model\Product;
 use \Hcode\Page;
@@ -57,6 +58,16 @@ $app->get("/products/:desurl", function($desurl){
 		'product'=>$product->getData(),
 		'categories'=>$product->getCategories()
 	]);
+});
+
+// Rota para visualizar o carrinho de compras
+$app->get('/cart',function(){
+	
+	$cart = Cart::getFromSession();
+	
+	$page = new Page();
+
+	$page->setTpl('cart');
 });
 
 ?>
