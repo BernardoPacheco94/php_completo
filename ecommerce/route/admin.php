@@ -30,6 +30,7 @@ $app->get("/admin/login", function () {
 //rota para pagina de admin
 $app->post("/admin/login", function () {
 	User::login($_POST["login"], $_POST["password"]);
+	
 
 	header('Location: /admin');
 	exit;
