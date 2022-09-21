@@ -139,4 +139,64 @@ class Cart extends Model
 
         return Product::checkList($rows);
     }
+
+    public function getProductsTotals()
+    {
+        $sql = new Sql;
+
+        $results = $sql->select('SELECT SUM(vlprice) AS vlprice, SUM(vlwidth) AS vlwidth, SUM(vlheight) AS vlheight, SUM(vllength) AS vllength, SUM(vlweight) AS vlweight, COUNT(*) AS nrqtd
+        FROM tb_products a
+        INNER JOIN tb_cartsproducts b ON a.idproduct = b.idproduct
+        WHERE b.idcart = :idcart AND dtremoved IS NULL;', [
+            ':idcart'=>$this->getidcart()
+        ]);
+
+        // if(count($results) > 0)
+        // {
+        //     return $results[0];
+        // }
+        // else
+        // {
+        //     return [];
+        // }
+
+        return (count($results) > 0) ? $results[0] : [];
+    }
+
+    public function setFreight($nrzipcode)
+    {
+        $nrzipcode = str_replace('-','',$nrzipcode);
+        $nrzipcode = str_replace('.','',$nrzipcode);
+
+        $totals = $this->getProductsTotals();
+
+        if($totals['nrqtd'] > 0) //calcula o frete
+        {
+            $qs = http_build_query([
+                'nCdEmpresa'=>'',
+                'sDsSenha'=>'',
+                'nCdServico'=>'40010',
+                'sCepOrigem'=>'81690-300',
+                'sCepDestino'=>$nrzipcode,
+                'nVlPeso'=>$totals['vlweight'],
+                'nCdFormato'=> 1,
+                'nVlComprimento'=>16,
+                'nVlAltura'=>2,
+                'nVlLargura'=>11,
+                'nVlDiametro'=> 1,
+                'sCdMaoPropria'=>'S',
+                'nVlValorDeclarado'=> 50,
+                'sCdAvisoRecebimento'=>'S'
+            ]);//monta querys para requisições http (vai ser usado no xml_load_file)
+            
+            
+            $xml = simplexml_load_file('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?'.$qs);
+
+            echo json_encode($xml);
+            exit;
+        }
+        else{
+
+        }
+    }
 }
