@@ -77,13 +77,15 @@ $app->get('/cart',function(){
 });
 
 $app->get('/cart/:idproduct/add', function($idproduct){
+	
 	$product = new Product;
 
 	$product->get((int)$idproduct);
 
 	$cart = Cart::getFromSession();
 
-	$qtd = $_GET['qtd'] ? (int)$_GET['qtd'] : 1;
+
+	$qtd = isset($_GET['qtd']) ? (int)$_GET['qtd'] : 1;
 
 	for ($i=0; $i < $qtd ; $i++) { 		
 		$cart->addProduct($product);
