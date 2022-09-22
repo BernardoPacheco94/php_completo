@@ -11,7 +11,7 @@ class Cart extends Model
 {
     const SESSION = 'Cart';
 
-    public static function getFromSession()//cria ou retorna o carrinho a partir da sessao
+    public static function getFromSession() //cria ou retorna o carrinho a partir da sessao
     {
         $cart = new Cart;
 
@@ -20,14 +20,13 @@ class Cart extends Model
         } else {
             $cart->getFromSessionID();
 
-            if(!(int)$cart->getidcart() > 0)//cria o carrinho caso nao exista
+            if (!(int)$cart->getidcart() > 0) //cria o carrinho caso nao exista
             {
                 $data = [
-                    'dessessionid'=>session_id()
+                    'dessessionid' => session_id()
                 ];
 
-                if(User::checkLogin(false))
-                {
+                if (User::checkLogin(false)) {
                     $user = User::getFromSession();
 
                     $data['iduser'] = $user->getiduser();
@@ -37,7 +36,7 @@ class Cart extends Model
 
                 $cart->save();
 
-                $cart->setToSession();                
+                $cart->setToSession();
             }
         }
 
@@ -49,7 +48,7 @@ class Cart extends Model
         $_SESSION[Cart::SESSION] = $this->getData();
     }
 
-    public function getFromSessionID()//pega a sessao a partir do id
+    public function getFromSessionID() //pega a sessao a partir do id
     {
         $sql = new Sql;
 
@@ -57,8 +56,7 @@ class Cart extends Model
             ':dessessionid' => session_id()
         ]);
 
-        if (count($result) > 0) 
-        {
+        if (count($result) > 0) {
             $this->setData($result[0]);
         }
     }
@@ -71,8 +69,7 @@ class Cart extends Model
             ':idcart' => $idcart
         ]);
 
-        if (count($result) > 0) 
-        {
+        if (count($result) > 0) {
             $this->setData($result[0]);
         }
     }
@@ -96,33 +93,31 @@ class Cart extends Model
     public function addProduct(Product $product)
     {
         $sql = new Sql;
-        
+
         $sql->query('INSERT INTO tb_cartsproducts (idcart, idproduct) VALUES (:idcart, :idproduct)', [
-            ':idcart'=>$this->getidcart(),
-            ':idproduct'=>$product->getidproduct()
+            ':idcart' => $this->getidcart(),
+            ':idproduct' => $product->getidproduct()
         ]);
     }
-    
+
     public function removeProduct(Product $product, $all = false)
     {
         $sql = new Sql;
 
-        if($all)
-        {
-            $sql->query('UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL;',[
-                ':idcart'=>$this->getidcart(),
-                ':idproduct'=>$product->getidproduct()
+        if ($all) {
+            $sql->query('UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL;', [
+                ':idcart' => $this->getidcart(),
+                ':idproduct' => $product->getidproduct()
             ]);
-        }
-        else{
-            $sql->query('UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1;',[
-                ':idcart'=>$this->getidcart(),
-                ':idproduct'=>$product->getidproduct()
+        } else {
+            $sql->query('UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1;', [
+                ':idcart' => $this->getidcart(),
+                ':idproduct' => $product->getidproduct()
             ]);
         }
     }
 
-    public function getProducts()//exibe os produtos que estão no carrinho
+    public function getProducts() //exibe os produtos que estão no carrinho
     {
         $sql = new Sql;
 
@@ -133,8 +128,8 @@ class Cart extends Model
         WHERE a.idcart = :idcart AND a.dtremoved IS NULL 
         GROUP BY b.idproduct, b.desproduct, b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl
         ORDER BY b.desproduct
-        ',[
-            ':idcart'=>$this->getidcart()
+        ', [
+            ':idcart' => $this->getidcart()
         ]);
 
         return Product::checkList($rows);
@@ -148,7 +143,7 @@ class Cart extends Model
         FROM tb_products a
         INNER JOIN tb_cartsproducts b ON a.idproduct = b.idproduct
         WHERE b.idcart = :idcart AND dtremoved IS NULL;', [
-            ':idcart'=>$this->getidcart()
+            ':idcart' => $this->getidcart()
         ]);
 
         // if(count($results) > 0)
@@ -165,38 +160,49 @@ class Cart extends Model
 
     public function setFreight($nrzipcode)
     {
-        $nrzipcode = str_replace('-','',$nrzipcode);
-        $nrzipcode = str_replace('.','',$nrzipcode);
+        $nrzipcode = str_replace('-', '', $nrzipcode);
+        $nrzipcode = str_replace('.', '', $nrzipcode);
 
         $totals = $this->getProductsTotals();
 
-        if($totals['nrqtd'] > 0) //calcula o frete
+        if ($totals['nrqtd'] > 0) //calcula o frete
         {
+            $sum = $totals['vllength'] + $totals['vlheight'] + $totals['vlwidth'];
+
+            if ($sum < 25) {
+                $totals['vllength'] = 16;
+                $totals['vlheight'] = 2;
+                $totals['vlwidth'] = 11;
+            }
+            if ($sum > 200) {
+                $totals['vllength'] = 65;
+                $totals['vlheight'] = 65;
+                $totals['vlwidth'] = 65;
+            }
+
             $qs = http_build_query([
-                'nCdEmpresa'=>'',
-                'sDsSenha'=>'',
-                'nCdServico'=>'40010',
-                'sCepOrigem'=>'81690-300',
-                'sCepDestino'=>$nrzipcode,
-                'nVlPeso'=>$totals['vlweight'],
-                'nCdFormato'=> 1,
-                'nVlComprimento'=>16,
-                'nVlAltura'=>2,
-                'nVlLargura'=>11,
-                'nVlDiametro'=> 1,
-                'sCdMaoPropria'=>'S',
-                'nVlValorDeclarado'=> 50,
-                'sCdAvisoRecebimento'=>'S'
-            ]);//monta querys para requisições http (vai ser usado no xml_load_file)
-            
-            
-            $xml = simplexml_load_file('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?'.$qs);
+                'nCdEmpresa' => '',
+                'sDsSenha' => '',
+                'nCdServico' => '40010',
+                'sCepOrigem' => '81690-300',
+                'sCepDestino' => $nrzipcode,
+                'nVlPeso' => $totals['vlweight'],
+                'nCdFormato' => 1,
+                'nVlComprimento' => $totals['vllength'],
+                'nVlAltura' => $totals['vlheight'],
+                'nVlLargura' => $totals['vlwidth'],
+                'nVlDiametro' => 1,
+                'sCdMaoPropria' => 'S',
+                'nVlValorDeclarado' => $totals['vlprice'],
+                'sCdAvisoRecebimento' => 'S'
+            ]); //monta querys para requisições http (vai ser usado no xml_load_file)
+
+
+            $xml = simplexml_load_file('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?' . $qs);
 
             echo json_encode($xml);
             exit;
-        }
-        else{
-
+        } else {
         }
     }
 }
