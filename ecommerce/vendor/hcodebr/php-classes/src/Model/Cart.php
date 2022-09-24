@@ -100,7 +100,7 @@ class Cart extends Model
             ':idproduct' => $product->getidproduct()
         ]);
 
-        $this->updateFreight();
+        $this->getCalculateTotal();
     }
 
     public function removeProduct(Product $product, $all = false)
@@ -119,7 +119,7 @@ class Cart extends Model
             ]);
         }
         
-        $this->updateFreight();
+        $this->getCalculateTotal();
     }
 
     public function getProducts() //exibe os produtos que estão no carrinho
@@ -273,5 +273,22 @@ class Cart extends Model
 
             Cart::setMsgError('Sem produtos no carrinho');
         }
+    }
+
+    public function getData()
+    {
+        $this->getCalculateTotal();
+
+        return parent::getData();
+    }
+
+    public function getCalculateTotal()
+    {
+        $this->updateFreight();
+
+        $totals = $this->getProductsTotals();
+
+        $this->setvlsubtotal($totals['vlprice']);
+        $this->setvltotal($totals['vlprice'] + $this->getvlfreight());
     }
 }
