@@ -10,6 +10,7 @@ use sql as GlobalSql;
 class Cart extends Model
 {
     const SESSION = 'Cart';
+    const SESSION_ERROR = 'CartError';
 
     public static function getFromSession() //cria ou retorna o carrinho a partir da sessao
     {
@@ -146,15 +147,6 @@ class Cart extends Model
             ':idcart' => $this->getidcart()
         ]);
 
-        // if(count($results) > 0)
-        // {
-        //     return $results[0];
-        // }
-        // else
-        // {
-        //     return [];
-        // }
-
         return (count($results) > 0) ? $results[0] : [];
     }
 
@@ -183,7 +175,7 @@ class Cart extends Model
             $qs = http_build_query([
                 'nCdEmpresa' => '',
                 'sDsSenha' => '',
-                'nCdServico' => '40010',
+                'nCdServico' => '41106',
                 'sCepOrigem' => '81690-300',
                 'sCepDestino' => $nrzipcode,
                 'nVlPeso' => $totals['vlweight'],
@@ -191,7 +183,7 @@ class Cart extends Model
                 'nVlComprimento' => $totals['vllength'],
                 'nVlAltura' => $totals['vlheight'],
                 'nVlLargura' => $totals['vlwidth'],
-                'nVlDiametro' => 1,
+                'nVlDiametro' => 0,
                 'sCdMaoPropria' => 'S',
                 'nVlValorDeclarado' => $totals['vlprice'],
                 'sCdAvisoRecebimento' => 'S'
@@ -200,9 +192,53 @@ class Cart extends Model
 
             $xml = simplexml_load_file('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?' . $qs);
 
-            echo json_encode($xml);
-            exit;
+            $result = $xml->Servicos->cServico;
+
+            
+            if($result->MsgErro !== "")
+            {
+                Cart::setMsgError($result->MsgErro);
+
+            } else
+            {
+                Cart::clearMsgError();
+            }
+
+            $this->setnrdays($result->PrazoEntrega);
+            $this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
+            $this->setdeszipcode($nrzipcode);
+            
+            
+            $this->save();
+
+            return $result;
+
+            
         } else {
+            
         }
+    }
+
+    public static function formatValueToDecimal($value)
+    {
+        $value = str_replace('.','',$value);
+        return str_replace(',','.', $value);
+    }
+
+    public static function setMsgError($msg)//sessao para passar a mensagem de erro no calculo do frete, caso exista
+    {
+        $_SESSION[Cart::SESSION_ERROR] = (string)$msg;        
+    }
+
+    public static function getMsgError()
+    {
+        $msg = (isset($_SESSION[Cart::SESSION_ERROR])) ? $_SESSION[Cart::SESSION_ERROR] : "";
+       
+        return $msg;
+    }
+
+    public static function clearMsgError()
+    {
+        $_SESSION[Cart::SESSION_ERROR] = NULL;
     }
 }
