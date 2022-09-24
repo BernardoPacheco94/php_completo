@@ -11,6 +11,7 @@ class User extends Model
 {
 
     const SESSION = "User"; //constante da sessao
+    const ERROR = "UserError";
 
     public static function login($login, $password)
     {
@@ -86,7 +87,10 @@ class User extends Model
     public static function verifyLogin($inadmin = true)//verifica se o usuário está logado e é admin
     {
         if (!User::checkLogin($inadmin)) {
-            header('Location: /admin');
+            header('Location: /admin/login');
+            exit;
+        } else{
+            header('Location: /login');
             exit;
         }
     }
@@ -247,5 +251,24 @@ class User extends Model
             ":password" => $pass,
             ":iduser" => $this->getiduser()
         ));
+    }
+
+    public static function setError($msg)
+    {
+        $_SESSION[User::ERROR] = $msg;
+    }
+
+    public static function getError()
+    {
+        $msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
+
+        User::clearError();
+
+        return $msg;
+    }
+
+    public static function clearError()
+    {
+        $_SESSION[User::ERROR] = null;
     }
 }
