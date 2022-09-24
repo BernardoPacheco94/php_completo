@@ -64,12 +64,15 @@ $app->get("/products/:desurl", function($desurl){
 $app->get('/cart',function(){
 	
 	$cart = Cart::getFromSession();
+
+	$cart->checkProductsQty();	
 	
 	$page = new Page();
 
 	$page->setTpl('cart', [
 		'cart'=>$cart->getData(),
 		'products'=>$cart->getProducts(),
+		'totals'=>$cart->getProductsTotals(),
 		'error'=>Cart::getMsgError()
 	]);
 });

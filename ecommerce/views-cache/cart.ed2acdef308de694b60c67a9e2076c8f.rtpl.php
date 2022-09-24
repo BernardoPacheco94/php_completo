@@ -56,7 +56,7 @@
                                         </td>
 
                                         <td class="product-price">
-                                            <span class="amount">R$ <?php echo formatPrice($value1["vlprice"]); ?></span> 
+                                            <span class="amount">R$ <?php echo formatPrice($value1["vlprice"]); ?></span>
                                         </td>
 
                                         <td class="product-quantity">
@@ -83,7 +83,7 @@
                                     
                                     <div class="coupon">
                                         <label for="cep">CEP:</label>
-                                        <input type="text" placeholder="00000-000" value="" id="cep" class="input-text" name="zipcode">
+                                        <input type="text" placeholder="00000-000" value="<?php echo htmlspecialchars( $cart["deszipcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" id="cep" class="input-text" name="zipcode">
                                         <input type="submit" formmethod="post" formaction="/cart/freight" value="CALCULAR" class="button">
                                     </div>
 
@@ -97,17 +97,17 @@
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Subtotal</th>
-                                                <td><span class="amount">R$ </span></td>
+                                                <td><span class="amount">R$ <?php echo htmlspecialchars( $totals["vlprice"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span></td>
                                             </tr>
 
                                             <tr class="shipping">
                                                 <th>Frete</th>
-                                                <td>$5.00 <small>prazo de 0 dia(s)</small></td>
+                                                <td>R$ <?php echo formatPrice($cart["vlfreight"]); ?> <?php if( $cart["nrdays"] > 0 ){ ?><small>prazo de <?php echo htmlspecialchars( $cart["nrdays"], ENT_COMPAT, 'UTF-8', FALSE ); ?> dia(s)</small><?php } ?></td>
                                             </tr>
 
                                             <tr class="order-total">
                                                 <th>Total</th>
-                                                <td><strong><span class="amount">$705.00</span></strong> </td>
+                                                <td><strong><span class="amount">R$ <?php echo htmlspecialchars( $totals["vlprice"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span></strong> </td>
                                             </tr>
                                         </tbody>
                                     </table>

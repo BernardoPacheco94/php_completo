@@ -99,6 +99,8 @@ class Cart extends Model
             ':idcart' => $this->getidcart(),
             ':idproduct' => $product->getidproduct()
         ]);
+
+        $this->updateFreight();
     }
 
     public function removeProduct(Product $product, $all = false)
@@ -116,6 +118,8 @@ class Cart extends Model
                 ':idproduct' => $product->getidproduct()
             ]);
         }
+        
+        $this->updateFreight();
     }
 
     public function getProducts() //exibe os produtos que estão no carrinho
@@ -157,6 +161,8 @@ class Cart extends Model
 
         $totals = $this->getProductsTotals();
 
+
+
         if ($totals['nrqtd'] > 0) //calcula o frete
         {
             $sum = $totals['vllength'] + $totals['vlheight'] + $totals['vlwidth'];
@@ -176,7 +182,7 @@ class Cart extends Model
                 'nCdEmpresa' => '',
                 'sDsSenha' => '',
                 'nCdServico' => '41106',
-                'sCepOrigem' => '81690-300',
+                'sCepOrigem' => '88015902',
                 'sCepDestino' => $nrzipcode,
                 'nVlPeso' => $totals['vlweight'],
                 'nCdFormato' => 1,
@@ -184,26 +190,27 @@ class Cart extends Model
                 'nVlAltura' => $totals['vlheight'],
                 'nVlLargura' => $totals['vlwidth'],
                 'nVlDiametro' => 0,
-                'sCdMaoPropria' => 'S',
+                'sCdMaoPropria' => 'N',
                 'nVlValorDeclarado' => $totals['vlprice'],
                 'sCdAvisoRecebimento' => 'S'
             ]); //monta querys para requisições http (vai ser usado no xml_load_file)
 
 
+
             $xml = simplexml_load_file('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?' . $qs);
 
             $result = $xml->Servicos->cServico;
-
+            
             
             if($result->MsgErro !== "")
             {
                 Cart::setMsgError($result->MsgErro);
-
+                
             } else
             {
                 Cart::clearMsgError();
             }
-
+            
             $this->setnrdays($result->PrazoEntrega);
             $this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
             $this->setdeszipcode($nrzipcode);
@@ -217,6 +224,9 @@ class Cart extends Model
         } else {
             
         }
+
+
+        
     }
 
     public static function formatValueToDecimal($value)
@@ -240,5 +250,28 @@ class Cart extends Model
     public static function clearMsgError()
     {
         $_SESSION[Cart::SESSION_ERROR] = NULL;
+    }
+
+    public function updateFreight()
+    {
+        if($this->getdeszipcode() != '')
+        {
+            $this->setFreight($this->getdeszipcode());
+        }
+
+    }
+
+    public function checkProductsQty()
+    {
+        $product = $this->getProducts();
+
+        if(!count($product)>0)
+        {
+            $this->setdeszipcode('');
+            $this->setvlfreight(0);
+            $this->setnrdays(0);
+
+            Cart::setMsgError('Sem produtos no carrinho');
+        }
     }
 }
