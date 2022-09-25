@@ -147,7 +147,6 @@ $app->get('/checkout', function () {
 	$page->setTpl("checkout", [
 		'cart' => $cart->getData(),
 		// 'address'=>$address->getData()
-
 	]);
 });
 
@@ -168,6 +167,13 @@ $app->post('/login', function () {
 		User::setError($e->getMessage());
 	}
 	header('Location: /checkout');
+	exit;
+});
+
+$app->get('/logout', function(){
+	User::logout();
+
+	header('Location: /login');
 	exit;
 });
 
