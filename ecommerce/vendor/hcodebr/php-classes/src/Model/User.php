@@ -12,6 +12,7 @@ class User extends Model
 
     const SESSION = "User"; //constante da sessao
     const ERROR = "UserError";
+    const ERROR_REGISTER = "UserErrorRegister";
 
     public static function login($login, $password)
     {
@@ -269,4 +270,35 @@ class User extends Model
     {
         $_SESSION[User::ERROR] = null;
     }
+
+    public static function setErrorRegister($msg)
+    {
+        $_SESSION[User::ERROR_REGISTER] = $msg;
+    }
+
+    public static function getErrorRegister()
+    {
+        $msg = (isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER]) ? $_SESSION[User::ERROR_REGISTER] : '';
+
+        User::clearErrorRegister();
+
+        return $msg;
+    }    
+
+    public static function clearErrorRegister()
+    {
+        $_SESSION[User::ERROR_REGISTER] = null;
+    }
+
+    public static function checkLoginExist($login)
+    {
+        $sql = new Sql;
+
+        $result = $sql->select('SELECT * FROM tb_users WHERE deslogin = :deslogin', [
+            'deslogin' => $login
+        ]);
+
+        return (count($result) > 0);//retorna true se já houver um login, false se não houver
+    }
+
 }

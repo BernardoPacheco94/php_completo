@@ -135,7 +135,7 @@ $app->post('/cart/freight', function () {
 });
 
 $app->get('/checkout', function () {
-	
+
 	User::verifyLogin(false);
 
 	$cart = Cart::getFromSession();
@@ -155,7 +155,13 @@ $app->get('/login', function () {
 	$page = new Page();
 
 	$page->setTpl("login", [
-		'error'=>User::getError()
+		'error' => User::getError(),
+		'errorRegister' => User::getErrorRegister(),
+		'registerValues'=> (isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : [
+			'name'=>'',
+			'email'=>'',
+			'phone'=>''
+			]
 	]);
 });
 
@@ -170,10 +176,61 @@ $app->post('/login', function () {
 	exit;
 });
 
-$app->get('/logout', function(){
+$app->get('/logout', function () {
 	User::logout();
 
 	header('Location: /login');
+	exit;
+});
+
+$app->post('/register', function () {
+
+	$_SESSION['registerValues'] = $_POST;
+	
+	if(!isset($_POST['name']) || $_POST['name'] == '')
+	{
+		User::setErrorRegister('Preencha o nome.');
+		header('Location: /login');
+		exit;
+	}
+
+	if(!isset($_POST['email']) || $_POST['email'] == '')
+	{
+		User::setErrorRegister('Preencha o email.');
+		header('Location: /login');
+		exit;
+	}
+
+	if(!isset($_POST['password']) || $_POST['password'] == '')
+	{
+		User::setErrorRegister('Preencha a senha.');
+		header('Location: /login');
+		exit;
+	}
+
+	if(User::checkLoginExist($_POST['email']))
+	{
+		User::setErrorRegister('Email já cadastrado.');
+		header('Location: /login');
+		exit;
+	}
+	
+	$user = new User;
+
+	$user->setData([
+		'inadmin' => 0,
+		'desperson' => $_POST['name'],
+		'deslogin' => $_POST['email'],
+		'desemail' => $_POST['email'],
+		'nrphone' => $_POST['phone'],
+		'despassword' => $_POST['password']
+	]);
+
+	$user->save();
+
+	User::login($_POST['email'], $_POST['password']);
+
+	header('Location: /checkout');
 	exit;
 });
 
