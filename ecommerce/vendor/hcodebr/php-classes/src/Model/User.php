@@ -121,11 +121,10 @@ class User extends Model
             ":inadmin" => $this->getinadmin()
         ));
 
-
         $this->setData($results[0]);
     }
 
-    public function get($iduser)
+    public function get($iduser)//retorna os dados do usuario com a procedure (dados person)
     {
         $sql = new Sql;
 
