@@ -292,17 +292,59 @@ $app->post("/forgot/reset", function () {
 $app->get("/profile", function () {
 
 	User::verifyLogin(false);
-	
+
 	$user = User::getFromSession();
-	$user->get($user->getiduser());//joga os dados user+person no objeto
+	$user->get($user->getiduser()); //joga os dados user+person no objeto
 
 	$page = new Page();
 
 	$page->setTpl("profile", [
 		'user' => $user->getData(),
-		'profileMsg'=>'',
-		'profileError'=>''
+		'profileMsg' => User::getMsgSuccess(),
+		'profileError' => User::getError()
 	]);
+});
+
+$app->post("/profile", function () {
+	User::verifyLogin(false);
+
+	if (!isset($_POST['desperson']) || $_POST['desperson'] === '') {
+		User::setError('Preencha o nome.');
+		header('Location: /profile');
+		exit;
+	}
+
+	if (!isset($_POST['desemail']) || $_POST['desemail'] === '') {
+		User::setError('Preencha o email.');
+		header('Location: /profile');
+		exit;
+	}
+
+	$user = User::getFromSession();
+	$user->get($user->getiduser());
+	
+
+	if ($_POST['desemail'] !== $user->getdesemail()) //email alterado
+	{
+		if (User::checkLoginExist($_POST['desemail']) === true) {
+			User::setError('Email já cadastrado');
+			header('Location: /profile');
+			exit;
+		}
+	}
+
+	$_POST['inadmin'] = $user->getinadmin();
+	$_POST['despassword'] = $user->getdespassword(); //camadas de segurança, para que essas propriedades não sejam alteradas, venham do proprio objeto
+	$_POST['deslogin'] = $_POST['desemail'];
+
+	$user->setData($_POST);
+
+	$user->update();
+
+	User::setMsgSuccess('Cadastro alterado!');
+
+	header('Location: /profile');
+	exit;
 });
 
 

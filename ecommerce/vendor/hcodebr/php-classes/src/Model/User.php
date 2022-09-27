@@ -13,6 +13,7 @@ class User extends Model
     const SESSION = "User"; //constante da sessao
     const ERROR = "UserError";
     const ERROR_REGISTER = "UserErrorRegister";
+    const SUCCESS = "UserMsgSuccess";
 
     public static function login($login, $password)
     {
@@ -304,5 +305,26 @@ class User extends Model
 
         return (count($result) > 0);//retorna true se já houver um login, false se não houver
     }
+
+    
+    public static function setMsgSuccess($msg)
+    {
+        $_SESSION[User::SUCCESS] = $msg;
+    }
+
+    public static function getMsgSuccess()
+    {
+        $msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+        User::clearMsgSuccess();
+
+        return $msg;
+    }
+
+    public static function clearMsgSuccess()
+    {
+        $_SESSION[User::SUCCESS] = null;
+    }
+
 
 }
