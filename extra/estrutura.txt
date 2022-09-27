@@ -78,3 +78,6 @@ Caixa
 		-alterar-comanda
 		-exibir-valores
 		-fechamento
+
+
+Impressão: https://pt.stackoverflow.com/questions/38409/como-imprimir-um-texto-cupom-via-javascript
