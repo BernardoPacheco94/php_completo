@@ -81,3 +81,7 @@ Caixa
 
 
 Impressão: https://pt.stackoverflow.com/questions/38409/como-imprimir-um-texto-cupom-via-javascript
+
+https://pt.stackoverflow.com/questions/782/como-imprimir-o-conteúdo-dentro-de-uma-div-html
+
+https://developer.mozilla.org/pt-BR/docs/Web/Guide/Printing

@@ -138,16 +138,30 @@ $app->get('/checkout', function () {
 
 	User::verifyLogin(false);
 
+	$address = new Address();
+	
 	$cart = Cart::getFromSession();
 
-	$address = new Address();
+	if (isset($_GET['zipcode']))
+	{
+		$address->loadFromCEP($_GET['zipcode']);
+		$cart->setdeszipcode($_GET['zipcode']);//atualiza o cep caso seja alterado
+		$cart->save();
+		$cart->getCalculateTotal();
+	}
 
 	$page = new Page();
 
 	$page->setTpl("checkout", [
 		'cart' => $cart->getData(),
-		// 'address'=>$address->getData()
+		'address'=>$address->getData(),
+		'products'=>$cart->getProducts()
 	]);
+});
+
+
+$app->post("/checkout", function(){
+
 });
 
 $app->get('/login', function () {
