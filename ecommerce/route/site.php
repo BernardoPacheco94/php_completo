@@ -135,7 +135,7 @@ $app->post('/cart/freight', function () {
 });
 
 $app->get('/checkout', function () {
-	
+
 	User::verifyLogin(false);
 
 	$cart = Cart::getFromSession();
@@ -157,11 +157,11 @@ $app->get('/login', function () {
 	$page->setTpl("login", [
 		'error' => User::getError(),
 		'errorRegister' => User::getErrorRegister(),
-		'registerValues'=> (isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : [
-			'name'=>'',
-			'email'=>'',
-			'phone'=>''
-			]
+		'registerValues' => (isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : [
+			'name' => '',
+			'email' => '',
+			'phone' => ''
+		]
 	]);
 });
 
@@ -186,35 +186,31 @@ $app->get('/logout', function () {
 $app->post('/register', function () {
 
 	$_SESSION['registerValues'] = $_POST;
-	
-	if(!isset($_POST['name']) || $_POST['name'] == '')
-	{
+
+	if (!isset($_POST['name']) || $_POST['name'] == '') {
 		User::setErrorRegister('Preencha o nome.');
 		header('Location: /login');
 		exit;
 	}
 
-	if(!isset($_POST['email']) || $_POST['email'] == '')
-	{
+	if (!isset($_POST['email']) || $_POST['email'] == '') {
 		User::setErrorRegister('Preencha o email.');
 		header('Location: /login');
 		exit;
 	}
 
-	if(!isset($_POST['password']) || $_POST['password'] == '')
-	{
+	if (!isset($_POST['password']) || $_POST['password'] == '') {
 		User::setErrorRegister('Preencha a senha.');
 		header('Location: /login');
 		exit;
 	}
 
-	if(User::checkLoginExist($_POST['email']))
-	{
+	if (User::checkLoginExist($_POST['email'])) {
 		User::setErrorRegister('Email já cadastrado.');
 		header('Location: /login');
 		exit;
 	}
-	
+
 	$user = new User;
 
 	$user->setData([
@@ -291,6 +287,22 @@ $app->post("/forgot/reset", function () {
 	$page = new Page();
 
 	$page->setTpl("forgot-reset-success");
+});
+
+$app->get("/profile", function () {
+
+	User::verifyLogin(false);
+	
+	$user = User::getFromSession();
+	$user->get($user->getiduser());//joga os dados user+person no objeto
+
+	$page = new Page();
+
+	$page->setTpl("profile", [
+		'user' => $user->getData(),
+		'profileMsg'=>'',
+		'profileError'=>''
+	]);
 });
 
 

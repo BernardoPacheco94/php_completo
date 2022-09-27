@@ -40,7 +40,7 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> Minha Conta</a></li>
+                            <li><a href="/profile"><i class="fa fa-user"></i> Minha Conta</a></li>
                             <li><a href="#"><i class="fa fa-heart"></i> Lista de Desejos</a></li>
                             <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Meu Carrinho</a></li>
                             <?php if( checkLogin(false) ){ ?>
@@ -84,7 +84,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="#"><img src="../res/site/img/logo.png"></a></h1>
+                        <h1><a href="/"><img src="../res/site/img/logo.png"></a></h1>
                     </div>
                 </div>
                 
