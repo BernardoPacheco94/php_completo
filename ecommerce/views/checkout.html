@@ -20,10 +20,11 @@
 						<div id="customer_details" class="col2-set">
 							<div class="row">
 								<div class="col-md-12">
-
-									<!-- <div class="alert alert-danger">
-										Error!
-									</div> -->
+									{if="$error != ''"}
+									<div class="alert alert-danger">
+										{$error}
+									</div>
+									{/if}
 
 									<div class="woocommerce-billing-fields">
 										<h3>Endereço de entrega</h3>
