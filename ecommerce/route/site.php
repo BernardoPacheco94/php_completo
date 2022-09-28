@@ -7,22 +7,17 @@ use \Hcode\Model\Product;
 use \Hcode\Page;
 use \Hcode\Model\Address;
 use \Hcode\Model\User;
+use Hcode\Model\Order;
 
 $app->get('/', function () {
 
-	
-	$products = Product::listAll();
-	
-	// $cart = Cart::getFromSession();
 
-    // var_dump($cart->getProductsTotals()['vlprice']);
-	// exit;
-	
+	$products = Product::listAll();
 
 	$page = new Page();
 
 	$page->setTpl("index", [
-		'products' => Product::checkList($products)		
+		'products' => Product::checkList($products)
 	]);
 });
 
@@ -147,67 +142,63 @@ $app->get('/checkout', function () {
 	$address = new Address();
 	
 	$cart = Cart::getFromSession();
-
-	if (isset($_GET['zipcode']))
-	{
-		$_GET['zipcode'] = $cart->getdeszipcode();
-	}
-
-	if (isset($_GET['zipcode']))
-	{
+	
+	// if (isset($_GET['zipcode'])) {
+	// 	$_GET['zipcode'] = $cart->getdeszipcode();
+	// }
+	
+	if (isset($_GET['zipcode'])) {
 		$address->loadFromCEP($_GET['zipcode']);
-		$cart->setdeszipcode($_GET['zipcode']);//atualiza o cep caso seja alterado
+		$cart->setdeszipcode($_GET['zipcode']); //atualiza o cep caso seja alterado
 		$cart->save();
 		$cart->getCalculateTotal();
 	}
-
-	if(!$address->getdesaddress()) $address->setdesaddress('');
-	if(!$address->getdescomplement()) $address->setdescomplement('');
-	if(!$address->getdesdistrict()) $address->setdesdistrict('');
-	if(!$address->getdescity()) $address->setdescity('');
-	if(!$address->getdescountry()) $address->setdescountry('');
-	if(!$address->getdeszipcode()) $address->setdeszipcode('');
-	if(!$address->getdesstate()) $address->setdesstate('');
+	
+	
+	if (!$address->getdesaddress()) $address->setdesaddress('');
+	if (!$address->getdescomplement()) $address->setdescomplement('');
+	if (!$address->getdesdistrict()) $address->setdesdistrict('');
+	if (!$address->getdescity()) $address->setdescity('');
+	if (!$address->getdescountry()) $address->setdescountry('');
+	if (!$address->getdeszipcode()) $address->setdeszipcode('');
+	if (!$address->getdesstate()) $address->setdesstate('');
+	
 
 	$page = new Page();
 
 	$page->setTpl("checkout", [
 		'cart' => $cart->getData(),
-		'address'=>$address->getData(),
-		'products'=>$cart->getProducts(),
-		'error'=>Address::getMsgError()
+		'address' => $address->getData(),
+		'products' => $cart->getProducts(),
+		'error' => Address::getMsgError()
 	]);
 });
 
 
-$app->post("/checkout", function(){
-	
+$app->post("/checkout", function () {
+
 	User::verifyLogin(false);
-
-	if(!isset($_POST['zipcode']) || $_POST['zipcode'] === '')
-	{
-		Address::setMsgError('Informe o CEP:');
-
-		header('Location: /checkout');
-		exit;
-	}
-	if(!isset($_POST['desaddress']) || $_POST['desaddress'] === '')
-	{
-		Address::setMsgError('Informe o endereço:');
+	
+	if (!isset($_POST['zipcode']) || $_POST['zipcode'] === '') {
+		Address::setMsgError('Informe o CEP');
 
 		header('Location: /checkout');
 		exit;
 	}
-	if(!isset($_POST['desdistrict']) || $_POST['desdistrict'] === '')
-	{
-		Address::setMsgError('Informe o bairro:');
+	if (!isset($_POST['desaddress']) || $_POST['desaddress'] === '') {
+		Address::setMsgError('Informe o endereço');
 
 		header('Location: /checkout');
 		exit;
 	}
-	if(!isset($_POST['descity']) || $_POST['descity'] === '')
-	{
-		Address::setMsgError('Informe a cidade:');
+	if (!isset($_POST['desdistrict']) || $_POST['desdistrict'] === '') {
+		Address::setMsgError('Informe o bairro');
+
+		header('Location: /checkout');
+		exit;
+	}
+	if (!isset($_POST['descity']) || $_POST['descity'] === '') {
+		Address::setMsgError('Informe a cidade');
 
 		header('Location: /checkout');
 		exit;
@@ -221,8 +212,16 @@ $app->post("/checkout", function(){
 
 	$address->setData($_POST);
 
+	$order = new Order;
+
+	$cart = Cart::getFromSession();
+
+	$order->setData([
+		'idcart' => $cart->getidcart()
+	]);
+
 	$address->save();
-	header('Location: /order');
+	header('Location: /order/' . $order->getidorder());
 	exit;
 });
 
@@ -398,7 +397,7 @@ $app->post("/profile", function () {
 
 	$user = User::getFromSession();
 	$user->get($user->getiduser());
-	
+
 
 	if ($_POST['desemail'] !== $user->getdesemail()) //email alterado
 	{
@@ -421,6 +420,14 @@ $app->post("/profile", function () {
 
 	header('Location: /profile');
 	exit;
+});
+
+$app->get("/order/:idorder", function ($idorder) {
+	User::verifyLogin(false);
+
+	$page = new Page();
+
+	$page->setTpl('payment');
 });
 
 

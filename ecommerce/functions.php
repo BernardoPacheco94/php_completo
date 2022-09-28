@@ -21,16 +21,16 @@ function getUserName()
     return $user->getdesperson();
 }
 
-function getCartPrice()
-{
-    $cart = Cart::getFromSession();
+// function getCartPrice()
+// {
+//     $cart = Cart::getFromSession();
 
-    return ($cart->getProductsTotals()['vlprice']);
-}
+//     return ($cart->getProductsTotals()['vlprice']);
+// }
 
-function getCartQty()
-{
-    $cart = Cart::getFromSession();
+// function getCartQty()
+// {
+//     $cart = Cart::getFromSession();
 
-    return ($cart->getProductsTotals()['nrqtd']);
-}
+//     return ($cart->getProductsTotals()['nrqtd']);
+// }

@@ -78,6 +78,7 @@ class Address extends Model
     public static function getMsgError()
     {
         $msg = (isset($_SESSION[Address::SESSION_ERROR])) ? $_SESSION[Address::SESSION_ERROR] : "";
+        Address::clearMsgError();
        
         return $msg;
     }
