@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="header-right">
                         <ul class="list-unstyled list-inline">
                             <li class="dropdown dropdown-small">
@@ -74,7 +74,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div> <!-- End header area -->
@@ -90,7 +90,7 @@
                 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="/cart">Carrinho - <span class="cart-amunt">R$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="/cart">Carrinho - <span class="cart-amunt"></span>R$ <?php echo getCartPrice(); ?> <i class="fa fa-shopping-cart"></i> <span class="product-count"><?php echo getCartQty(); ?></span></a>
                     </div>
                 </div>
             </div>

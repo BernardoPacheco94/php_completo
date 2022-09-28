@@ -10,13 +10,19 @@ use \Hcode\Model\User;
 
 $app->get('/', function () {
 
+	
 	$products = Product::listAll();
+	
+	// $cart = Cart::getFromSession();
 
+    // var_dump($cart->getProductsTotals()['vlprice']);
+	// exit;
+	
 
 	$page = new Page();
 
 	$page->setTpl("index", [
-		'products' => Product::checkList($products)
+		'products' => Product::checkList($products)		
 	]);
 });
 
