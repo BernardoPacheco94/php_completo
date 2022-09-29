@@ -3,7 +3,7 @@
 namespace Hcode\Model;
 
 use Hcode\DB\Sql;
-use Model;
+use Hcode\Model;
 
 class Order extends Model {
 
@@ -33,7 +33,7 @@ class Order extends Model {
 
         $result = $sql->select("SELECT * 
         FROM tb_orders a 
-        INNER JOIN tb_orderstatus b USING(idstatus)
+        INNER JOIN tb_ordersstatus b USING(idstatus)
         INNER JOIN tb_carts c USING (idcart)
         INNER JOIN tb_users d ON d.iduser = a.iduser/*usado o on para vincular exatamente ao id da tabela a(tb_orders) */
         INNER JOIN tb_addresses e USING(idaddress)

@@ -8,6 +8,7 @@ use \Hcode\Page;
 use \Hcode\Model\Address;
 use \Hcode\Model\User;
 use Hcode\Model\Order;
+use Hcode\Model\OrderStatus;
 
 $app->get('/', function () {
 
@@ -146,7 +147,7 @@ $app->get('/checkout', function () {
 	// if (isset($_GET['zipcode'])) {
 	// 	$_GET['zipcode'] = $cart->getdeszipcode();
 	// }
-	
+
 	if (isset($_GET['zipcode'])) {
 		$address->loadFromCEP($_GET['zipcode']);
 		$cart->setdeszipcode($_GET['zipcode']); //atualiza o cep caso seja alterado
@@ -177,7 +178,7 @@ $app->get('/checkout', function () {
 
 $app->post("/checkout", function () {
 
-	User::verifyLogin(false);
+	// User::verifyLogin(false);
 	
 	if (!isset($_POST['zipcode']) || $_POST['zipcode'] === '') {
 		Address::setMsgError('Informe o CEP');
@@ -211,16 +212,24 @@ $app->post("/checkout", function () {
 	$_POST['idperson'] = $user->getidperson();
 
 	$address->setData($_POST);
+	$address->save();
 
 	$order = new Order;
 
 	$cart = Cart::getFromSession();
 
+	$totals = $cart->getProductsTotals();
+
 	$order->setData([
-		'idcart' => $cart->getidcart()
+		'idcart' => $cart->getidcart(),
+		'idaddress' =>$address->getidaddress(),
+		'iduser' => $user->getiduser(),
+		'idstatus' => OrderStatus::EM_ABERTO,
+		'vltotal' => $totals['vlprice'] + $cart->getvlfreight()
 	]);
 
-	$address->save();
+	
+	$order->save();
 	header('Location: /order/' . $order->getidorder());
 	exit;
 });
@@ -425,9 +434,15 @@ $app->post("/profile", function () {
 $app->get("/order/:idorder", function ($idorder) {
 	User::verifyLogin(false);
 
+	$order = new Order;
+
+	$order->get((int)$idorder);
+
 	$page = new Page();
 
-	$page->setTpl('payment');
+	$page->setTpl('payment', [
+		'order' => $order->getData()
+	]);
 });
 
 

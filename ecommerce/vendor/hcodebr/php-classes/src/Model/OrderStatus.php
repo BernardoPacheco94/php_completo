@@ -2,7 +2,7 @@
 
 namespace Hcode\Model;
 
-use Model;
+use Hcode\Model;
 
 class OrderStatus extends Model {
     const EM_ABERTO = 1;
