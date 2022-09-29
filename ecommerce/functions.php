@@ -21,16 +21,29 @@ function getUserName()
     return $user->getdesperson();
 }
 
-// function getCartPrice()
-// {
-//     $cart = Cart::getFromSession();
+function getCartPrice()
+{
+    $cart = Cart::getFromSession();
 
-//     return ($cart->getProductsTotals()['vlprice']);
-// }
+    return ($cart->getProductsTotals()['vlprice']);
+}
 
-// function getCartQty()
-// {
-//     $cart = Cart::getFromSession();
+function getCartQty()
+{
+    $cart = Cart::getFromSession();
 
-//     return ($cart->getProductsTotals()['nrqtd']);
-// }
+    return ($cart->getProductsTotals()['nrqtd']);
+}
+
+function mask($mask, $string)
+{
+    $string = str_replace(" ",'',$string);
+    $string = str_replace(".",'',$string);
+    $string = str_replace("-",'',$string);
+
+    for ($i=0; $i < strlen($string); $i++) { 
+        $mask[strpos($mask, "#")] = $string[$i];
+    }
+
+    return $mask;
+}
