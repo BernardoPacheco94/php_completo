@@ -447,7 +447,7 @@ $app->get("/order/:idorder", function ($idorder) {
 
 $app->get("/boleto/:idorder", function ($idorder) {
 
-	// User::verifyLogin(false);
+	User::verifyLogin(false);
 
 
 	$order = new Order;
@@ -512,6 +512,33 @@ $app->get("/boleto/:idorder", function ($idorder) {
 	// NÃO ALTERAR!
 	include("res/boletophp/include/funcoes_itau.php");
 	include("res/boletophp/include/layout_itau.php");
+});
+
+$app->get("/profile/orders", function(){
+	User::verifyLogin(false);
+
+	$user = User::getFromSession();
+
+	$page = new Page();
+
+	$page->setTpl("profile-orders",[
+		'orders'=>$user->getOrders()
+	]);
+});
+
+
+$app->get("/profile/orders/:idorder", function($idorder){
+	User::verifyLogin(false);
+	
+	$order = new Order;
+	
+	$order->get((int)$idorder);
+	
+	$page = new Page();
+
+	$page->setTpl("profile-orders-detail",[
+		'order'=>$order->getData()
+	]);
 });
 
 ?>
