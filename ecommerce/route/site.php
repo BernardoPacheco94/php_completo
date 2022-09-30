@@ -472,7 +472,7 @@ $app->get("/boleto/:idorder", function ($idorder) {
 	// DADOS DO SEU CLIENTE
 	$dadosboleto["sacado"] = $order->getdesperson();
 	$dadosboleto["endereco1"] = $order->getdesaddress().", ".$order->getdesdistrict();
-	$dadosboleto["endereco2"] = $order->getdesdistrict()." - ".$order->getdesstate()." - CEP: ".mask("##.###-###",$order->getdeszipcode());
+	$dadosboleto["endereco2"] = $order->getdescity()." - ".$order->getdesstate()." CEP: ".mask("##.###-###",$order->getdeszipcode());
 
 	// INFORMACOES PARA O CLIENTE
 	$dadosboleto["demonstrativo1"] = "Pagamento de Compra na Loja Hcode E-commerce";
