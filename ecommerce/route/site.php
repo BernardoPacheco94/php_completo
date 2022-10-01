@@ -178,7 +178,7 @@ $app->get('/checkout', function () {
 
 $app->post("/checkout", function () {
 
-	// User::verifyLogin(false);
+	User::verifyLogin(false);
 
 	if (!isset($_POST['zipcode']) || $_POST['zipcode'] === '') {
 		Address::setMsgError('Informe o CEP');
@@ -526,19 +526,27 @@ $app->get("/profile/orders", function(){
 	]);
 });
 
-
 $app->get("/profile/orders/:idorder", function($idorder){
 	User::verifyLogin(false);
-	
+
 	$order = new Order;
-	
+
 	$order->get((int)$idorder);
-	
+
+	$cart = new Cart;
+
+	$cart->get((int)$order->getidcart());
+
 	$page = new Page();
 
 	$page->setTpl("profile-orders-detail",[
-		'order'=>$order->getData()
+		'order' => $order->getData(),
+		'cart'=>$cart->getData()
 	]);
 });
+
+
+
+
 
 ?>
