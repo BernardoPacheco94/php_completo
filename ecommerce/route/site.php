@@ -541,7 +541,8 @@ $app->get("/profile/orders/:idorder", function($idorder){
 
 	$page->setTpl("profile-orders-detail",[
 		'order' => $order->getData(),
-		'cart'=>$cart->getData()
+		'cart'=>$cart->getData(),
+		'products' => $cart->getProducts()
 	]);
 });
 

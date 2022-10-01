@@ -25,7 +25,9 @@ function getCartPrice()
 {
     $cart = Cart::getFromSession();
 
-    return ($cart->getProductsTotals()['vlprice']);
+    $vlCart = $cart->getProductsTotals()['vlprice'];
+
+    return (formatPrice($vlCart));
 }
 
 function getCartQty()
