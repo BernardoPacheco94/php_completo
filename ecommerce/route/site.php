@@ -585,17 +585,25 @@ $app->post("/profile/change-password", function(){
 		exit;
 	}
 
-	if($_POST['current_pass'] == $_POST['new_pass'])
+	if($_POST['current_pass'] === $_POST['new_pass'])
 	{
 		User::setError('A nova senha deve ser diferente da atual.');
 		header('Location: /profile/change-password');
 		exit;
 	}
 
+	if($_POST['new_pass'] !== $_POST['new_pass_confirm'])
+	{
+		User::setError('Não foi possível confirmar a nova senha.');
+		header('Location: /profile/change-password');
+		exit;
+	}
+
 	$user = User::getFromSession();
+	$user->get((int)$user->getiduser());
 
 	if(!password_verify($_POST['current_pass'], $user->getdespassword()))
-	{
+	{		
 		User::setError('Senha inválida.');
 		header('Location: /profile/change-password');
 		exit;		
