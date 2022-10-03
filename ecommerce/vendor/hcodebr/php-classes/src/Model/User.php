@@ -46,58 +46,56 @@ class User extends Model
         }
     }
 
-    public  static function getFromSession()//retorna uma sessao vazia caso nao haja usuario
+    public  static function getFromSession() //retorna uma sessao vazia caso nao haja usuario
     {
         $user = new User;
 
-        if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]['iduser'] > 0) 
-        {
+        if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]['iduser'] > 0) {
             $user->setData($_SESSION[User::SESSION]);
         }
 
         return $user;
     }
 
-    public static function checkLogin($inadmin = true)//verificar se está logado
+    public static function checkLogin($inadmin = true) //verificar se está logado
     {
-        if(
+        if (
             !isset($_SESSION[User::SESSION])
             ||
             !$_SESSION[User::SESSION]
             ||
             !(int)$_SESSION[User::SESSION]["iduser"] > 0
-        )
-        {
+        ) {
             //nao está logado
             return false;
-        } else{
-            if($inadmin === true && (bool)$_SESSION[User::SESSION]["inadmin"] === true)
-            {
+        } else {
+            if ($inadmin === true && (bool)$_SESSION[User::SESSION]["inadmin"] === true) {
                 return true;
-            }
-            else if($inadmin === false)
-            {
+            } else if ($inadmin === false) {
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
     }
 
-    public static function verifyLogin($inadmin = true)//verifica se o usuário está logado e é admin
+    public static function verifyLogin($inadmin = true) //verifica se o usuário está logado e é admin
     {
         if (!User::checkLogin($inadmin)) {
-            header('Location: /admin/login');
-        } else{
-            header('Location: /login');
+
+            if ($inadmin) {
+                header('Location: /admin/login');
+            } else {
+                header('Location: /login');
+            }
+            exit;
         }
     }
 
     public static function logout()
     {
         $_SESSION[User::SESSION] = NULL;
+        session_destroy();
     }
 
     public static function listAll()
@@ -125,7 +123,7 @@ class User extends Model
         $this->setData($results[0]);
     }
 
-    public function get($iduser)//retorna os dados do usuario com a procedure (dados person)
+    public function get($iduser) //retorna os dados do usuario com a procedure (dados person)
     {
         $sql = new Sql;
 
@@ -194,7 +192,7 @@ class User extends Model
                 define('SECRET', pack('a16', 'senha'));
                 $code = base64_encode(openssl_encrypt($dataRecovery["idrecovery"], 'AES-128-CBC', SECRET, 0, SECRET));
 
-                if($inadmin == true){
+                if ($inadmin == true) {
                     $link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
                 } else {
                     $link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code";
@@ -290,7 +288,7 @@ class User extends Model
         User::clearErrorRegister();
 
         return $msg;
-    }    
+    }
 
     public static function clearErrorRegister()
     {
@@ -305,10 +303,10 @@ class User extends Model
             'deslogin' => $login
         ]);
 
-        return (count($result) > 0);//retorna true se já houver um login, false se não houver
+        return (count($result) > 0); //retorna true se já houver um login, false se não houver
     }
 
-    
+
     public static function setMsgSuccess($msg)
     {
         $_SESSION[User::SUCCESS] = $msg;
@@ -332,7 +330,8 @@ class User extends Model
     {
         $sql = new Sql;
 
-        $result = $sql->select("SELECT * 
+        $result = $sql->select(
+            "SELECT * 
         FROM tb_orders a 
         INNER JOIN tb_ordersstatus b USING(idstatus)
         INNER JOIN tb_carts c USING (idcart)
@@ -340,14 +339,11 @@ class User extends Model
         INNER JOIN tb_addresses e USING(idaddress)
         INNER JOIN tb_persons f ON f.idperson = d.idperson
         WHERE a.iduser = :iduser",
-        [
-            ':iduser' => $this->getiduser()
-        ]);
+            [
+                ':iduser' => $this->getiduser()
+            ]
+        );
 
-        return $result;        
+        return $result;
     }
-
-
-
-
 }

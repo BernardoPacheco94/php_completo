@@ -1,5 +1,6 @@
 <?php
 
+use Hcode\Model\Order;
 use \Hcode\PageAdmin;
 use \Hcode\Model\User;
 
@@ -44,3 +45,5 @@ $app->get("/admin/logout", function () {
 	header('Location: /admin/login');
 	exit;
 });
+
+

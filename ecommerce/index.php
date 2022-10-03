@@ -15,6 +15,7 @@ require_once ("route".DIRECTORY_SEPARATOR."users.php");
 require_once ("route".DIRECTORY_SEPARATOR."passrecovery.php");
 require_once ("route".DIRECTORY_SEPARATOR."categories.php");
 require_once ("route".DIRECTORY_SEPARATOR."products.php");
+require_once ("route".DIRECTORY_SEPARATOR."orders.php");
 
 
 $app->run();
