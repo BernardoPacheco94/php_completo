@@ -2,6 +2,7 @@
 
 use \Hcode\Model\Order;
 use \Hcode\Model\User;
+use Hcode\Page;
 use \Hcode\PageAdmin;
 
 //rota de acesso a pedidos
@@ -15,3 +16,18 @@ $app->get("/admin/orders", function(){
 	]);
 });
 
+$app->get('/admin/orders/:idorder/status', function($idorder){
+    User::verifyLogin();
+
+    $order = new Order;
+
+    $order->get($idorder);
+
+    $page = new PageAdmin();
+
+    $page->setTpl('order-status',[
+        'order' => $order->getData(),
+        'msgError' => '',
+        'msgSuccess' => ''
+    ]);
+});
