@@ -252,9 +252,11 @@ $app->get('/login', function () {
 $app->post('/login', function () {
 
 	try {
-		User::login($_POST['login'], $_POST['password']);
+		$user = User::login($_POST['login'], $_POST['password']);
 	} catch (Exception $e) {
 		User::setError($e->getMessage());
+		header('Location: /login');
+		exit;
 	}
 	header('Location: /checkout');
 	exit;
