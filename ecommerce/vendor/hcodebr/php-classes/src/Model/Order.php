@@ -6,6 +6,8 @@ use Hcode\DB\Sql;
 use Hcode\Model;
 
 class Order extends Model {
+    const SUCCESS = 'OrderSuccess';
+    const ERROR = 'OrderError';
 
     public function save()
     {
@@ -64,4 +66,54 @@ class Order extends Model {
         ORDER BY a.dtregister DESC'
         );
     }
+
+    public function delete()
+    {
+        $sql = new Sql;
+
+        $sql->query('DELETE FROM tb_orders WHERE idorder = :idorder', [
+            'idorder' => $this->getidorder()
+        ]);
+    }
+
+    
+    public static function setError($msg)
+    {
+        $_SESSION[Order::ERROR] = $msg;
+    }
+
+    public static function getError()
+    {
+        $msg = (isset($_SESSION[Order::ERROR]) && $_SESSION[Order::ERROR]) ? $_SESSION[Order::ERROR] : '';
+
+        Order::clearError();
+
+        return $msg;
+    }
+
+    public static function clearError()
+    {
+        $_SESSION[Order::ERROR] = null;
+    }
+
+    
+    public static function setMsgSuccess($msg)
+    {
+        $_SESSION[Order::SUCCESS] = $msg;
+    }
+
+    public static function getMsgSuccess()
+    {
+        $msg = (isset($_SESSION[Order::SUCCESS]) && $_SESSION[Order::SUCCESS]) ? $_SESSION[Order::SUCCESS] : '';
+
+        Order::clearMsgSuccess();
+
+        return $msg;
+    }
+
+    public static function clearMsgSuccess()
+    {
+        $_SESSION[Order::SUCCESS] = null;
+    }
+
 }
