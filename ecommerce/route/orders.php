@@ -35,6 +35,30 @@ $app->get('/admin/orders/:idorder/status', function($idorder){
     ]);
 });
 
+$app->post('/admin/orders/:idorder/status', function($idorder){
+    User::verifyLogin();
+    
+    if(!isset($_POST['idstatus']) || !(int)$_POST['idstatus'] > 0)
+    {
+        Order::setError('Houve falha ao alterar o status');
+        header("Location: /admin/orders/".$idorder."/status");
+        exit;
+    }
+
+    $order = new Order;    
+
+    $order->get($idorder);
+
+    $order->setidstatus((int)$_POST['idstatus']);
+
+    $order->save();
+
+    Order::setMsgSuccess('Status atualizado!');
+        header("Location: /admin/orders/".$idorder."/status");
+        exit;
+
+});
+
 $app->get('/admin/orders/:idorder/delete', function($idorder){
     User::verifyLogin();
 
