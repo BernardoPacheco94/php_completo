@@ -38,6 +38,8 @@ $app->post("/admin/products/create", function(){
 
     $products->save();
 
+    $products->setPhoto($_FILES['file']);
+
     header('Location: /admin/products');
     exit;
 });
@@ -58,7 +60,7 @@ $app->get("/admin/products/:idproduct", function($idproduct){
 
 });
 
-//rota para salvar categoria editada
+//rota para salvar produto editado
 $app->post("/admin/products/:idproduct", function($idproduct){
     User::verifyLogin();
     
@@ -74,7 +76,7 @@ $app->post("/admin/products/:idproduct", function($idproduct){
     exit;
 });
 
-//rota para deletar categoria
+//rota para deletar produto
 $app->get("/admin/products/:idproduct/delete", function($idproduct){
     User::verifyLogin();
     
