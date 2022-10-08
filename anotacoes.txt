@@ -301,6 +301,15 @@ Gerenciador de dependências do php, como tem o npm do nde, o pip do python, etc
 
 Configrando ele corretamente no meu projeto, todas as dependencias necessárias serão incorporadas automaticamente.
 
+> Cria o arquivo de configuração (manifest) na raiz do projeto
+    - Comandos:
+        -composer init
+        -informar o vendor (nick do github) e o nome do repositorio
+        -seguir respondendo as solicitações
+        -minimum stabiliy: é a minima versao estavel do projeto, usar o termo dev para versoes iniciais e depois alpha, beta, etc...
+        -no arquivo json criado, a chave "require" é onde vou informar os pacotes que vou instalar, usando a sintaxe "vendor/pacote": versão
+
+
 
 -------RAIN TPL------
 
