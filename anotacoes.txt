@@ -307,7 +307,8 @@ Configrando ele corretamente no meu projeto, todas as dependencias necessárias 
         -informar o vendor (nick do github) e o nome do repositorio
         -seguir respondendo as solicitações
         -minimum stabiliy: é a minima versao estavel do projeto, usar o termo dev para versoes iniciais e depois alpha, beta, etc...
-        -no arquivo json criado, a chave "require" é onde vou informar os pacotes que vou instalar, usando a sintaxe "vendor/pacote": versão
+        -no arquivo json criado, a chave "require" é onde vou informar os pacotes que vou instalar, usando a sintaxe "vendor/pacote": "versão"
+        -comando 'composer update' para instalar o pacote solicitado no require
 
 
 
@@ -392,6 +393,7 @@ Criptografia atraves de openSSL_encrypt
     > Tudo que vem pela url é convertido para texto, por isso em algumas situações é necessário fazer o casting
     > explode -> usado para converter string para array, o implode faz o oposto, convertendo array para string
     > Dividir as rotas por assunto
+    >comando para fazer o update das alterações: composer dump-autoload
     
 
 
