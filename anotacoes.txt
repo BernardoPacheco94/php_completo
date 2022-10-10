@@ -394,6 +394,7 @@ Criptografia atraves de openSSL_encrypt
     > explode -> usado para converter string para array, o implode faz o oposto, convertendo array para string
     > Dividir as rotas por assunto
     >comando para fazer o update das alterações: composer dump-autoload
+    >ajax + slim: https://pt.stackoverflow.com/questions/282128/requisição-ajax-com-slim
     
 
 
